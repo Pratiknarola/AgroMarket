@@ -13,6 +13,10 @@ module.exports = function(app) {
     app.get("/api/test/all", controller.allAccess);
     
     app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
+
+    app.get("/api/getpastauction", [authJwt.verifyToken, authJwt.isBuyer], controller.getpastauctions);
+    app.get("/api/getpresentauction", [authJwt.verifyToken, authJwt.isBuyer], controller.getpresentauctions);
+    app.get("/api/getfutureauction", [authJwt.verifyToken, authJwt.isBuyer], controller.getfutureauctions);
     
     app.get(
       "/api/test/farmer",
