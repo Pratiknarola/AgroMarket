@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
 import { Avatar, Button, Paper, Grid, Typography, Container, IconButton ,Collapse,FormControl,Select,MenuItem,InputLabel} from '@material-ui/core';
@@ -12,13 +12,12 @@ import Input from './Input';
 
 const initialState={firstName:'',lastName:'',email:'',username:'',password:'',confirmPassword:''}
 
-const Login = ({setUser}) => {
+const Login = ({ setUser }) => {
   const [open, setOpen] = useState(false);
-
   const [alertmsg,setAlertMsg] = useState('');
-  const [role,setRole] =useState('')
+  const [roles,setRoles] =useState([])
   const [isSignup, setIsSignup] = useState(false);
-  const [formData,setFormData]=useState(initialState)
+  const [formData, setFormData] = useState(initialState);
   let history = useHistory();
   const classes = useStyles();
 
@@ -32,6 +31,8 @@ const Login = ({setUser}) => {
 
   const handleSubmit = async (e) => {
     console.log(formData);
+    console.log('printing role')
+    console.log(roles)
     e.preventDefault();
      if(isSignup){
 
@@ -43,11 +44,10 @@ const Login = ({setUser}) => {
           username:formData.username,
           password:formData.password,
           confirmPassword:formData.confirmPassword,
-          role:role
+          roles:roles
          })
        console.log(suc)
        setAlertMsg('Successfully Registered')
-       setOpen(true)
        } catch (error) {
         setAlertMsg(error.response.data.message)
        }
@@ -71,28 +71,20 @@ const Login = ({setUser}) => {
      }
   };
 
- 
-
   const handleChange = (e) => {
       setFormData({...formData,[e.target.name]:e.target.value})
   }
 
   const handleChange1 = (e) => {
-    setRole(e.target.value)
-    console.log(e.target.value)
+    setRoles([...roles,e.target.value])
 }
-
-
-  
 
 
 
   return (
-       
     <Container component="main" maxWidth="xs">
-
-     
-<Collapse in={open}>
+      
+      <Collapse in={open}>
         <Alert
           action={
             <IconButton
@@ -109,7 +101,6 @@ const Login = ({setUser}) => {
           }
         >
           {alertmsg}
-          Successfully Registered !
         </Alert>
       </Collapse>
 
@@ -117,7 +108,9 @@ const Login = ({setUser}) => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">{ isSignup ? 'Sign up' : 'Sign in' }</Typography>
+        <Typography component="h1" variant="h5">
+          {isSignup ? "Sign up" : "Sign in"}
+        </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             { isSignup && (
@@ -125,38 +118,36 @@ const Login = ({setUser}) => {
               <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
               <Input name="lastName" label="Last Name" handleChange={handleChange} half />
               <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
-
-
               <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel >Role</InputLabel>
-        <Select onChange={handleChange1} label="role">
-          <MenuItem value='Admin'>Admin</MenuItem>
-          <MenuItem value='Buyer'>Buyer</MenuItem>
-          <MenuItem value='Farmer'>Farmer</MenuItem>
+        <InputLabel >Roles</InputLabel>
+        <Select onChange={handleChange1} label="roles">
+          <MenuItem value='admin'>Admin</MenuItem>
+          <MenuItem value='buyer'>Buyer</MenuItem>
+          <MenuItem value='farmer'>Farmer</MenuItem>
         </Select>
       </FormControl>
-
-
             </>
+            )
+}
+            <Input name="username" label="username" handleChange={handleChange}/>
+            <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword}/>
+            {isSignup && (
+              <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange}type="password"/>
             )}
-            <Input name="username" label="username" handleChange={handleChange} />
-            <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
-            { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" /> }
           </Grid>
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-            { isSignup ? 'Sign Up' : 'Sign In' }
+            {isSignup ? "Sign Up" : "Sign In"}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
-                { isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up" }
+                {isSignup
+                  ? "Already have an account? Sign in"
+                  : "Don't have an account? Sign Up"}
               </Button>
             </Grid>
           </Grid>
         </form>
-
-
-
       </Paper>
     </Container>
   );
