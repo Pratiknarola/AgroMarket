@@ -13,6 +13,7 @@ exports.createauction = (req,res) => {
 
     console.log("data received for auction is : \n ");
     console.log(req.body);
+    const auctionid = Math.random().toString(36).substring(2, 15);
 
     const auction = new Auction(
         {
@@ -24,7 +25,8 @@ exports.createauction = (req,res) => {
             owner : req.userid,
             description : req.body.description,
             startprice : req.body.startprice,
-            bids : []
+            bids : [],
+            tempId: auctionid
         }
     );
 
