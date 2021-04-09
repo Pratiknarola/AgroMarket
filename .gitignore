@@ -6,6 +6,8 @@
 .pnp.js
 
 server/node_modules
+server/.env
+.env
 
 .idea/
 # testing

@@ -22,7 +22,12 @@ const User = mongoose.model(
       }
     ],
     firstname: String,
-    lastname: String
+    lastname: String,
+    rating : Number,
+    auctionsParticipated : [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Auction"
+    }],
   })
 );
 
