@@ -23,27 +23,37 @@ const Login = ({setUser}) => {
     setShowPassword(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     //console.log(formData);
     e.preventDefault();
      if(isSignup){
-       axios.post('http://localhost:8080/api/auth/signup',{
-        firstName:formData.firstName,
-        lastName:formData.lastName,
-        email:formData.email,
-        username:formData.username,
-        password:formData.password,
-        confirmPassword:formData.confirmPassword,
-       }).then((res)=>console.log(res.data))
-       .catch((err)=>console.log(err))
+       try {
+        const suc=await axios.post('http://localhost:8080/api/auth/signup',{
+          firstName:formData.firstName,
+          lastName:formData.lastName,
+          email:formData.email,
+          username:formData.username,
+          password:formData.password,
+          confirmPassword:formData.confirmPassword,
+         })
+               
+       console.log(suc)
+       } catch (error) {
+         console.log(error.response.data.message)
+       }
+     
      }
      else{
-
-      axios.post('http://localhost:8080/api/auth/signin',{
-        username:formData.username,
-        password:formData.password,
-       }).then((res)=>console.log(res.data))
-       .catch((err)=>console.log(err))
+         try {
+          const suc = await axios.post('http://localhost:8080/api/auth/signin',{
+            username:formData.username,
+            password:formData.password,
+           })
+                 
+       console.log(suc)
+         } catch (error) {
+          console.log(error.response.data.message)
+         }
 
        setUser('rohit')
        history.push('/dashboard')
