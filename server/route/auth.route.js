@@ -12,7 +12,7 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/auth/confirm/:confirmationCode", controller.verifyUser);
+  //app.get("/api/auth/confirm/:confirmationCode", controller.verifyUser);
   app.get("/confirm/:confirmationCode", controller.verifyUser);
 
   app.post(

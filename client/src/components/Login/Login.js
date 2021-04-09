@@ -48,7 +48,10 @@ const Login = ({ setUser }) => {
          })
        console.log(suc)
        setAlertMsg('Successfully Registered')
+<<<<<<< HEAD
        setIsSignup((prevIsSignup) => !prevIsSignup);
+=======
+>>>>>>> db5856aa29195dd114dfd4fb7bd50e289bb044ef
        } catch (error) {
         setAlertMsg(error.response.data.message)
        }
