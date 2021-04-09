@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
-import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
+import { Avatar, Button, Paper, Grid, Typography, Container, IconButton ,Collapse} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import FlashMessage from 'react-flash-message'
+import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Input from './Input';
@@ -10,6 +13,7 @@ import Input from './Input';
 const initialState={firstName:'',lastName:'',email:'',username:'',password:'',confirmPassword:''}
 
 const Login = ({setUser}) => {
+  const [open, setOpen] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const [formData,setFormData]=useState(initialState)
   let history = useHistory();
@@ -36,8 +40,8 @@ const Login = ({setUser}) => {
           password:formData.password,
           confirmPassword:formData.confirmPassword,
          })
-               
        console.log(suc)
+       setOpen(true)
        } catch (error) {
          console.log(error.response.data.message)
        }
@@ -70,8 +74,30 @@ const Login = ({setUser}) => {
 
 
   return (
-     
+       
     <Container component="main" maxWidth="xs">
+
+     
+<Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+                setIsSignup((prevIsSignup) => !prevIsSignup);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          Successfully Registered !
+        </Alert>
+      </Collapse>
+
       <Paper className={classes.paper} elevation={3}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -101,6 +127,9 @@ const Login = ({setUser}) => {
             </Grid>
           </Grid>
         </form>
+
+
+
       </Paper>
     </Container>
   );
