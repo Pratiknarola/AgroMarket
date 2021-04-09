@@ -6,7 +6,8 @@
 .pnp.js
 
 server/node_modules
-
+.env
+/server/.env
 .idea/
 # testing
 /coverage
