@@ -14,6 +14,7 @@ const initialState={firstName:'',lastName:'',email:'',username:'',password:'',co
 
 const Login = ({setUser}) => {
   const [open, setOpen] = useState(false);
+
   const [alertmsg,setAlertMsg] = useState('');
   const [role,setRole] =useState('')
   const [isSignup, setIsSignup] = useState(false);
@@ -46,6 +47,7 @@ const Login = ({setUser}) => {
          })
        console.log(suc)
        setAlertMsg('Successfully Registered')
+       setOpen(true)
        } catch (error) {
         setAlertMsg(error.response.data.message)
        }
@@ -107,6 +109,7 @@ const Login = ({setUser}) => {
           }
         >
           {alertmsg}
+          Successfully Registered !
         </Alert>
       </Collapse>
 
