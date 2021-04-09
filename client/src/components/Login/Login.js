@@ -31,7 +31,8 @@ const initialState = {
   confirmPassword: "",
 };
 
-const Login = ({setUser}) => {
+
+const Login = ({ setUser }) => {
   const [open, setOpen] = useState(false);
   const [alertmsg, setAlertMsg] = useState("");
   const [roles, setRoles] = useState([]);
@@ -112,6 +113,7 @@ const Login = ({setUser}) => {
          }
        history.push('/dashboard')
      }
+
   };
 
   const handleChange = (e) => {
