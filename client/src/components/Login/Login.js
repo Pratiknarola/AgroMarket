@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
-import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
+import { Avatar, Button, Paper, Grid, Typography, Container, IconButton ,Collapse,FormControl,Select,MenuItem,InputLabel} from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
+import FlashMessage from 'react-flash-message'
+import Alert from '@material-ui/lab/Alert';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Input from './Input';
@@ -10,6 +13,9 @@ import Input from './Input';
 const initialState={firstName:'',lastName:'',email:'',username:'',password:'',confirmPassword:''}
 
 const Login = ({setUser}) => {
+  const [open, setOpen] = useState(false);
+  const [alertmsg,setAlertMsg] = useState('');
+  const [role,setRole] =useState('')
   const [isSignup, setIsSignup] = useState(false);
   const [formData,setFormData]=useState(initialState)
   let history = useHistory();
@@ -24,9 +30,10 @@ const Login = ({setUser}) => {
   };
 
   const handleSubmit = async (e) => {
-    //console.log(formData);
+    console.log(formData);
     e.preventDefault();
      if(isSignup){
+
        try {
         const suc=await axios.post('http://localhost:8080/api/auth/signup',{
           firstName:formData.firstName,
@@ -35,12 +42,14 @@ const Login = ({setUser}) => {
           username:formData.username,
           password:formData.password,
           confirmPassword:formData.confirmPassword,
+          role:role
          })
-               
        console.log(suc)
+       setAlertMsg('Successfully Registered')
        } catch (error) {
-         console.log(error.response.data.message)
+        setAlertMsg(error.response.data.message)
        }
+       setOpen(true)
      
      }
      else{
@@ -58,7 +67,6 @@ const Login = ({setUser}) => {
        setUser('rohit')
        history.push('/dashboard')
      }
-     setFormData(initialState)
   };
 
  
@@ -67,11 +75,41 @@ const Login = ({setUser}) => {
       setFormData({...formData,[e.target.name]:e.target.value})
   }
 
+  const handleChange1 = (e) => {
+    setRole(e.target.value)
+    console.log(e.target.value)
+}
+
+
+  
+
 
 
   return (
-     
+       
     <Container component="main" maxWidth="xs">
+
+     
+<Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+                setIsSignup((prevIsSignup) => !prevIsSignup);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          {alertmsg}
+        </Alert>
+      </Collapse>
+
       <Paper className={classes.paper} elevation={3}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -84,6 +122,18 @@ const Login = ({setUser}) => {
               <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
               <Input name="lastName" label="Last Name" handleChange={handleChange} half />
               <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
+
+
+              <FormControl variant="outlined" className={classes.formControl}>
+        <InputLabel >Role</InputLabel>
+        <Select onChange={handleChange1} label="role">
+          <MenuItem value='Admin'>Admin</MenuItem>
+          <MenuItem value='Buyer'>Buyer</MenuItem>
+          <MenuItem value='Farmer'>Farmer</MenuItem>
+        </Select>
+      </FormControl>
+
+
             </>
             )}
             <Input name="username" label="username" handleChange={handleChange} />
@@ -101,6 +151,9 @@ const Login = ({setUser}) => {
             </Grid>
           </Grid>
         </form>
+
+
+
       </Paper>
     </Container>
   );
