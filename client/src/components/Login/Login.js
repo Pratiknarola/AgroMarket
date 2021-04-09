@@ -76,33 +76,6 @@ const Login = ({setUser}) => {
           username: formData.username,
           password: formData.password,
         });
-
-
-       try {
-        const suc=await axios.post('http://localhost:8080/api/auth/signup',{
-          firstName:formData.firstName,
-          lastName:formData.lastName,
-          email:formData.email,
-          username:formData.username,
-          password:formData.password,
-          confirmPassword:formData.confirmPassword,
-          roles:roles
-         })
-       console.log(suc)
-       setAlertMsg('Successfully Registered')
-       setIsSignup((prevIsSignup) => !prevIsSignup);
-       } catch (error) {
-        setAlertMsg(error.response.data.message)
-       }
-       setOpen(true)
-     
-     }
-     else{
-         try {
-          const suc = await axios.post('http://localhost:8080/api/auth/signin',{
-            username:formData.username,
-            password:formData.password,
-           })
                  
        console.log(suc)
           localStorage.setItem('profile',JSON.stringify(suc?.data.username))
