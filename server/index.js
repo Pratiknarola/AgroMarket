@@ -18,52 +18,52 @@ const uri = process.env.ATLAS_URI;
 db.mongoose.connect(uri,{useNewUrlParser:true , useCreateIndex: true , useUnifiedTopology:true});
 const connection = db.mongoose.connection;
 connection.once('open',() => {
-    console.log("MongoDB connection established successfully");
-    initial();
+  console.log("MongoDB connection established successfully");
+  initial();
 })
 .catch(err => {
-    console.error("Connection error", err);
-    process.exit();
+  console.error("Connection error", err);
+  process.exit();
 });
 
 function initial() {
-    Role.estimatedDocumentCount((err, count) => {
-      if (!err && count === 0) {
-        new Role({
-          name: "farmer"
-        }).save(err => {
-          if (err) {
-            console.log("error", err);
-          }
-  
-          console.log("added 'user' to roles collection");
-        });
-  
-        new Role({
-          name: "buyer"
-        }).save(err => {
-          if (err) {
-            console.log("error", err);
-          }
-  
-          console.log("added 'moderator' to roles collection");
-        });
-  
-        new Role({
-          name: "admin"
-        }).save(err => {
-          if (err) {
-            console.log("error", err);
-          }
-  
-          console.log("added 'admin' to roles collection");
-        });
-      }
-    });
+  Role.estimatedDocumentCount((err, count) => {
+    if (!err && count === 0) {
+      new Role({
+        name: "farmer"
+      }).save(err => {
+        if (err) {
+          console.log("error", err);
+        }
+        
+        console.log("added 'user' to roles collection");
+      });
+      
+      new Role({
+        name: "buyer"
+      }).save(err => {
+        if (err) {
+          console.log("error", err);
+        }
+        
+        console.log("added 'moderator' to roles collection");
+      });
+      
+      new Role({
+        name: "admin"
+      }).save(err => {
+        if (err) {
+          console.log("error", err);
+        }
+        
+        console.log("added 'admin' to roles collection");
+      });
+    }
+  });
 }
 
 //var corsOptions = {
- // origin: "http://localhost:8081"
+// origin: "http://localhost:8081"
 //};
 
 

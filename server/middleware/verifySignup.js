@@ -3,11 +3,11 @@ const ROLES = db.ROLES;
 const User = db.user;
 
 checkDuplicateUsernameOrEmail = (req, res, next) => {
-
+  
   //console.log(req);
   // console.log("webifbuiwebfouwbfebfwewfboewfboebfo");
   // console.log(req.body);
-
+  
   // Username
   User.findOne({
     username: req.body.username
@@ -16,15 +16,15 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
       res.status(500).send({ message: err });
       return;
     }
-
+    
     if (user) {
       res.status(400).send({ message: "Failed! Username is already in use!" });
       return;
     }
-
-
-
-
+    
+    
+    
+    
     // Email
     User.findOne({
       email: req.body.email
@@ -34,18 +34,19 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
         res.status(500).send({ message: err });
         return;
       }
-
+      
       if (user) {
         res.status(400).send({ message: "Failed! Email is already in use!" });
         return;
       }
-
+      
       next();
     });
   });
 };
 
 checkRolesExisted = (req, res, next) => {
+  console.log(req.body)
   if (req.body.roles) {
     // console.log("roles here");
     // console.log(ROLES);
@@ -58,7 +59,7 @@ checkRolesExisted = (req, res, next) => {
       }
     }
   }
-
+  
   next();
 };
 

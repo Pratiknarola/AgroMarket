@@ -1,8 +1,8 @@
 const { verifySignup } = require("../middleware");
 const controller = require("../controller/auth.controller");
 
-module.exports = function(app) {
-  app.use(function(req, res, next) {
+module.exports = function (app) {
+  app.use(function (req, res, next) {
     console.log("i m inside auth.rout.js");
     console.log(req.body);
     res.header(
@@ -19,7 +19,7 @@ module.exports = function(app) {
     "/api/auth/signup",
     [
       verifySignup.checkDuplicateUsernameOrEmail,
-      verifySignup.checkRolesExisted
+      verifySignup.checkRolesExisted,
     ],
     controller.signup
   );
