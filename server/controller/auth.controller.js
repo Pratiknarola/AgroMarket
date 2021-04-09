@@ -68,6 +68,12 @@ exports.signup = (req, res) => {
           }
 
           res.send({ message: "Buyer was registered successfully!" });
+          nodemailer.sendConfirmationEmail(
+            user.username,
+            user.email,
+            user.confirmationCode
+          );
+    console.log("EMail sent");
         });
       });
     }
