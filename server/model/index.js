@@ -8,7 +8,6 @@ db.mongoose = mongoose;
 db.user = require("./user.model");
 db.role = require("./role.model");
 db.auction = require("./auction.model");
-db.bid = require("./bid.model");
 db.buyer = require("./buyer.model");
 db.crop =  require("./crop.model");
 db.farmer = require("./farmer.model");
