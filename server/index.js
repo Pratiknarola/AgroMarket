@@ -13,6 +13,7 @@ require('./route/auth.route')(app);
 require('./route/user.route')(app);
 require("./route/admin.route")(app);
 require("./route/farmer.route")(app);
+require("./route/auction.route")(app);
 
 const Role = db.role;
 const uri = process.env.ATLAS_URI;
