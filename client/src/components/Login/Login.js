@@ -24,7 +24,7 @@ const Login = ({setUser}) => {
   };
 
   const handleSubmit = (e) => {
-    console.log(formData);
+    //console.log(formData);
     e.preventDefault();
      if(isSignup){
        axios.post('http://localhost:8080/api/auth/signup',{
@@ -34,7 +34,7 @@ const Login = ({setUser}) => {
         username:formData.username,
         password:formData.password,
         confirmPassword:formData.confirmPassword,
-       }).then((res)=>console.log(res))
+       }).then((res)=>console.log(res.data))
        .catch((err)=>console.log(err))
      }
      else{
@@ -42,7 +42,7 @@ const Login = ({setUser}) => {
       axios.post('http://localhost:8080/api/auth/signin',{
         username:formData.username,
         password:formData.password,
-       }).then((res)=>console.log(res))
+       }).then((res)=>console.log(res.data))
        .catch((err)=>console.log(err))
 
        setUser('rohit')
