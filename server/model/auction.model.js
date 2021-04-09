@@ -11,6 +11,10 @@ const Auction = mongoose.model(
       ref: "Crop",
     },
     quantity: Number,
+    tempId: {
+      type: String,
+      unique: true,
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -25,7 +29,7 @@ const Auction = mongoose.model(
         },
         bidprice: Number,
         time: Number,
-      }
+      },
     ],
   })
 );
