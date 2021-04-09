@@ -1,28 +1,45 @@
 const db = require("../model");
 const User = db.user;
 const Role = db.role;
-require('dotenv').config();
-const nodemailer = require('./nodemailer.config');
+const Farmer = db.farmer;
+require("dotenv").config();
+const nodemailer = require("./nodemailer.config");
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
-
-  const confirmtoken = jwt.sign({email: req.body.email}, process.env.CONFIRM_SECRET)
+  const confirmtoken = jwt.sign(
+    { email: req.body.email },
+    process.env.CONFIRM_SECRET
+  );
   const user = new User({
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
     firstname: req.body.firstName,
     lastname: req.body.lastName,
-    confirmationCode: confirmtoken
+    confirmationCode: confirmtoken,
   });
 
   user.save((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
+    }
+    if (req.body.roles[0] === "farmer") {
+      const farmeruser = new Farmer({
+        id: user._id,
+        crop: [],
+      });
+      farmeruser.save((err, farmuser) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        console.log(farmuser);
+        console.log("farmer doc added sucesfully");
+      });
     }
 
     if (req.body.roles) {
@@ -49,7 +66,7 @@ exports.signup = (req, res) => {
               user.email,
               user.confirmationCode
             );
-			console.log("EMail sent");
+            console.log("EMail sent");
           });
         }
       );
@@ -73,7 +90,8 @@ exports.signup = (req, res) => {
             user.email,
             user.confirmationCode
           );
-    console.log("EMail sent");
+
+          console.log("EMail sent");
         });
       });
     }
@@ -81,6 +99,9 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
+  console.log("inside signin of auth.route.js " + req.body.username);
+  console.log(req.body);
+
   User.findOne({
     username: req.body.username,
   })
@@ -95,9 +116,9 @@ exports.signin = (req, res) => {
         return res.status(404).send({ message: "User Not found." });
       }
 
-      if (user.status != "Active"){
+      if (user.status != "Active") {
         return res.status(401).send({
-          message: "Pending account. Please verify your email!!"
+          message: "Pending account. Please verify your email!!",
         });
       }
 
@@ -105,7 +126,7 @@ exports.signin = (req, res) => {
         req.body.password,
         user.password
       );
-
+        console.log("checking password");
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
@@ -116,6 +137,8 @@ exports.signin = (req, res) => {
       var token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: 86400, // 24 hours
       });
+
+      console.log("token is "+ token);
 
       var authorities = [];
 
@@ -133,27 +156,26 @@ exports.signin = (req, res) => {
     });
 };
 
-
 exports.verifyUser = (req, res, next) => {
-	console.log("i got req as ");
-	console.log(req.params);
-	User.findOne({
-	  confirmationCode: req.params.confirmationCode,
-	})
-	  .then((user) => {
-		if (!user) {
-		  return res.status(404).send({ message: "User Not found." });
-		}
-  
-		user.status = "Active";
-		user.save((err) => {
-		  if (err) {
-			res.status(500).send({ message: err });
-			return;
-		  }
-		});
+  console.log("i got req as ");
+  console.log(req.params);
+  User.findOne({
+    confirmationCode: req.params.confirmationCode,
+  })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ message: "User Not found." });
+      }
 
-		res.status(200).send({message: "Email verified!! You can login now."});
-	  })
-	  .catch((e) => console.log("error", e));
-  };
+      user.status = "Active";
+      user.save((err) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+      });
+
+      res.status(200).send({ message: "Email verified!! You can login now." });
+    })
+    .catch((e) => console.log("error", e));
+};

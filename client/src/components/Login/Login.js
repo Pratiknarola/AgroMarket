@@ -1,21 +1,40 @@
-import  { useState } from 'react';
-import axios from 'axios'
-import {useHistory} from 'react-router-dom'
-import { Avatar, Button, Paper, Grid, Typography, Container, IconButton ,Collapse,FormControl,Select,MenuItem,InputLabel} from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import FlashMessage from 'react-flash-message'
-import Alert from '@material-ui/lab/Alert';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import useStyles from './styles';
-import Input from './Input';
+import { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import {
+  Avatar,
+  Button,
+  Paper,
+  Grid,
+  Typography,
+  Container,
+  IconButton,
+  Collapse,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import FlashMessage from "react-flash-message";
+import Alert from "@material-ui/lab/Alert";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import useStyles from "./styles";
+import Input from "./Input";
 
-
-const initialState={firstName:'',lastName:'',email:'',username:'',password:'',confirmPassword:''}
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  username: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const Login = ({ setUser }) => {
   const [open, setOpen] = useState(false);
-  const [alertmsg,setAlertMsg] = useState('');
-  const [roles,setRoles] =useState([])
+  const [alertmsg, setAlertMsg] = useState("");
+  const [roles, setRoles] = useState([]);
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState(initialState);
   let history = useHistory();
@@ -31,59 +50,53 @@ const Login = ({ setUser }) => {
 
   const handleSubmit = async (e) => {
     console.log(formData);
-    console.log('printing role')
-    console.log(roles)
+    console.log("printing role");
+    console.log(roles);
     e.preventDefault();
-     if(isSignup){
+    if (isSignup) {
+      try {
+        const suc = await axios.post("http://localhost:8080/api/auth/signup", {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          username: formData.username,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword,
+          roles: roles,
+        });
+        console.log(suc);
+        setAlertMsg("Successfully Registered");
+      } catch (error) {
+        setAlertMsg(error.response.data.message);
+      }
+      setOpen(true);
+    } else {
+      try {
+        const suc = await axios.post("http://localhost:8080/api/auth/signin", {
+          username: formData.username,
+          password: formData.password,
+        });
 
-       try {
-        const suc=await axios.post('http://localhost:8080/api/auth/signup',{
-          firstName:formData.firstName,
-          lastName:formData.lastName,
-          email:formData.email,
-          username:formData.username,
-          password:formData.password,
-          confirmPassword:formData.confirmPassword,
-          roles:roles
-         })
-       console.log(suc)
-       setAlertMsg('Successfully Registered')
-       } catch (error) {
-        setAlertMsg(error.response.data.message)
-       }
-       setOpen(true)
-     
-     }
-     else{
-         try {
-          const suc = await axios.post('http://localhost:8080/api/auth/signin',{
-            username:formData.username,
-            password:formData.password,
-           })
-                 
-       console.log(suc)
-         } catch (error) {
-          console.log(error.response.data.message)
-         }
+        console.log(suc);
+      } catch (error) {
+        console.log(error.response.data.message);
+      }
 
-       setUser('rohit')
-       history.push('/dashboard')
-     }
+      setUser("rohit");
+      history.push("/dashboard");
+    }
   };
 
   const handleChange = (e) => {
-      setFormData({...formData,[e.target.name]:e.target.value})
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleChange1 = (e) => {
-    setRoles([...roles,e.target.value])
-}
-
-
+    setRoles([...roles, e.target.value]);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
-      
       <Collapse in={open}>
         <Alert
           action={
@@ -113,29 +126,65 @@ const Login = ({ setUser }) => {
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            { isSignup && (
-            <>
-              <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
-              <Input name="lastName" label="Last Name" handleChange={handleChange} half />
-              <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
-              <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel >Roles</InputLabel>
-        <Select onChange={handleChange1} label="roles">
-          <MenuItem value='admin'>Admin</MenuItem>
-          <MenuItem value='buyer'>Buyer</MenuItem>
-          <MenuItem value='farmer'>Farmer</MenuItem>
-        </Select>
-      </FormControl>
-            </>
-            )
-}
-            <Input name="username" label="username" handleChange={handleChange}/>
-            <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword}/>
             {isSignup && (
-              <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange}type="password"/>
+              <>
+                <Input
+                  name="firstName"
+                  label="First Name"
+                  handleChange={handleChange}
+                  autoFocus
+                  half
+                />
+                <Input
+                  name="lastName"
+                  label="Last Name"
+                  handleChange={handleChange}
+                  half
+                />
+                <Input
+                  name="email"
+                  label="Email Address"
+                  handleChange={handleChange}
+                  type="email"
+                />
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel>Roles</InputLabel>
+                  <Select onChange={handleChange1} label="roles">
+                    <MenuItem value="admin">Admin</MenuItem>
+                    <MenuItem value="buyer">Buyer</MenuItem>
+                    <MenuItem value="farmer">Farmer</MenuItem>
+                  </Select>
+                </FormControl>
+              </>
+            )}
+            <Input
+              name="username"
+              label="username"
+              handleChange={handleChange}
+            />
+            <Input
+              name="password"
+              label="Password"
+              handleChange={handleChange}
+              type={showPassword ? "text" : "password"}
+              handleShowPassword={handleShowPassword}
+            />
+            {isSignup && (
+              <Input
+                name="confirmPassword"
+                label="Repeat Password"
+                handleChange={handleChange}
+                type="password"
+              />
             )}
           </Grid>
-          <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+          >
             {isSignup ? "Sign Up" : "Sign In"}
           </Button>
           <Grid container justify="flex-end">

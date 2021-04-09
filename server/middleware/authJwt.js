@@ -15,8 +15,8 @@ verifyToken = (req, res, next) => {
     if (err) {
       return res.status(401).send({ message: "Unauthorized!" });
     }
-    req.userId = decoded.id;
-    console.log(req.userId + " " + req.body.id);
+    req.userid = decoded.id;
+    console.log(req.userid + "is the user id");
     console.log(`decoded id is ${decoded.id}`);
 
     next();
@@ -24,7 +24,7 @@ verifyToken = (req, res, next) => {
 };
 
 isAdmin = (req, res, next) => {
-  User.findById(req.userId).exec((err, user) => {
+  User.findById(req.userid).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
@@ -55,7 +55,7 @@ isAdmin = (req, res, next) => {
 };
 
 isFarmer = (req, res, next) => {
-  User.findById(req.userId).exec((err, user) => {
+  User.findById(req.userid).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
@@ -86,7 +86,7 @@ isFarmer = (req, res, next) => {
 };
 
 isBuyer = (req, res, next) => {
-  User.findById(req.userId).exec((err, user) => {
+  User.findById(req.userid).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;

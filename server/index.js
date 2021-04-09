@@ -11,6 +11,8 @@ app.use(cors());
 app.use(express.json());
 require('./route/auth.route')(app);
 require('./route/user.route')(app);
+require("./route/admin.route")(app);
+require("./route/farmer.route")(app);
 
 const Role = db.role;
 const uri = process.env.ATLAS_URI;
