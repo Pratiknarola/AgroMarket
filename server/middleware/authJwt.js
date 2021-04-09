@@ -16,11 +16,7 @@ verifyToken = (req, res, next) => {
       return res.status(401).send({ message: "Unauthorized!" });
     }
     req.userId = decoded.id;
-<<<<<<< HEAD
     console.log(req.userId + " " + req.body.id);
-=======
-    console.log(req.userId + "is the user id");
->>>>>>> db5856aa29195dd114dfd4fb7bd50e289bb044ef
     console.log(`decoded id is ${decoded.id}`);
 
     next();

@@ -16,7 +16,7 @@ function App() {
 
   return (
     <Router>
-      <Route path='/dashboard'> <Dashboard   setUser={setUser}  /></Route> 
+      <Route path='/dashboard' component={Dashboard} />
     </Router>
   );
 }
