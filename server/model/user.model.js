@@ -26,7 +26,7 @@ const User = mongoose.model(
     rating : Number,
     auctionsParticipated : [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Auction"
+      ref: "Auction",
     }],
   })
 );

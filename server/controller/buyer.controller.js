@@ -18,9 +18,9 @@ exports.addbid = (req, res) => {
   Auction.findById(auctionid)
     .then((auction) => {
       auction.bids.push({
-        "bidby": req.userid,
-        "bidprice": req.body.bidprice,
-        "time": req.body.time,
+        bidby: req.userid,
+        bidprice: req.body.bidprice,
+        time: req.body.time,
       });
       console.log("i found the auction for bid to place in");
       auction.save((err, auction) => {
@@ -30,9 +30,22 @@ exports.addbid = (req, res) => {
         }
         console.log("bid added to auction successfully.");
       });
-      res.status(200).send("bid added to auction successfully.");
+      let flag = false;
+      User.findById(req.userid).then((user) => {
+        user.auctionsParticipated.forEach((element) => {
+          console.log(element + " is the element " + auctionid);
+          if (element == auctionid) {
+            flag = true;
+          }
+        });
+        if (!flag) {
+          user.auctionsParticipated.push(auctionid);
+          user.save();
+        }
+        res.status(200).send("bid added to auction successfully.");
+      });
     })
     .catch((err) => {
-        res.status(404).send("Auction not found");
+      res.status(404).send("Auction not found");
     });
 };

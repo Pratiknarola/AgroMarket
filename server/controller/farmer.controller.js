@@ -39,7 +39,10 @@ exports.createauction = (req,res) => {
 
         console.log("Auction is sccheduled by farmer and added to datbase");
         console.log("auction id is" + auctiondoc._id);
-
+        User.findById(req.userid).then(user=>{
+            user.auctionsParticipated.push(auctiondoc._id);
+            user.save();
+        });
         res.status(200).send({message: "Auction was added successfully"})
 
     });
