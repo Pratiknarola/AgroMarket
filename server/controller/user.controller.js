@@ -72,7 +72,7 @@ exports.getprofile = (req, res) => {
             myobj.email = user.email;
             myobj.firstname = user.firstname;
             myobj.lastname = user.lastname;
-
+            //TODO : send winner auction to frontend in case of buyer.
         res.status(200).send(myobj);
 
         });

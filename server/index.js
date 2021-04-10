@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./model");
-const Pusher = require("pusher");
 require('dotenv').config();
 
 const app = express();
@@ -21,13 +20,7 @@ const Role = db.role;
 const uri = process.env.ATLAS_URI;
 
 
-const pusher = new Pusher({
-  appId: process.env.PUSHER_APPID,
-  key: process.env.PUSHER_KEY,
-  secret: process.env.PUSHER_SECRET,
-  cluster: process.env.PUSHER_CLUSTER,
-  useTLS: true
-});
+
 
 // pusher.trigger("my-channel", "my-event", {
 //   message: "hello world"
