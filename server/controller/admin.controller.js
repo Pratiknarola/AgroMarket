@@ -9,6 +9,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.addcrop = (req, res) => {
+    //console.log(req.body)
     User.findOne({
         username: req.body.username,
     })
