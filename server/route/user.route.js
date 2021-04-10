@@ -18,6 +18,12 @@ module.exports = function (app) {
     app.get("/api/getpastauction", [authJwt.verifyToken, authJwt.isBuyer], controller.getpastauctions);
     app.get("/api/getpresentauction", [authJwt.verifyToken], controller.getpresentauctions);
     app.get("/api/getfutureauction", [authJwt.verifyToken, authJwt.isBuyer], controller.getfutureauctions);
+    
+    app.get(
+        "/api/:auctionid/leaderboad",
+        [authJwt.verifyToken],
+        controller.getleaderboard
+    );
 
     app.get(
         "/api/test/farmer",
@@ -36,4 +42,6 @@ module.exports = function (app) {
         [authJwt.verifyToken, authJwt.isAdmin],
         controller.adminBoard
     );
+
+
 };

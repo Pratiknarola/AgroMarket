@@ -1,9 +1,17 @@
-import {useState} from 'react'
-import {Grid,TextField,Button,Paper,Typography,Container,InputLabel} from '@material-ui/core'
+import { useState } from "react";
 import axios from 'axios'
+import {
+  Grid,
+  TextField,
+  Button,
+  Paper,
+  Typography,
+  Container,
+  InputLabel,
+} from "@material-ui/core";
 import useStyles from "./styles";
-import FileBase from 'react-file-base64';
-import NumericInput from 'react-numeric-input';
+import FileBase from "react-file-base64";
+import NumericInput from "react-numeric-input";
 
 const Admin = () => {
   const accessToken = JSON.parse(localStorage.getItem('profile')).accessToken;
@@ -70,4 +78,4 @@ const Admin = () => {
     )
 }
 
-export default Admin
+export default Admin;
