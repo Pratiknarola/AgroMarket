@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const db = require("./model");
+const Pusher = require("pusher");
 require('dotenv').config();
 
 const app = express();
@@ -13,9 +14,24 @@ require('./route/auth.route')(app);
 require('./route/user.route')(app);
 require("./route/admin.route")(app);
 require("./route/farmer.route")(app);
+require("./route/buyer.route")(app);
+require("./route/auction.route")(app);
 
 const Role = db.role;
 const uri = process.env.ATLAS_URI;
+
+
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APPID,
+  key: process.env.PUSHER_KEY,
+  secret: process.env.PUSHER_SECRET,
+  cluster: process.env.PUSHER_CLUSTER,
+  useTLS: true
+});
+
+// pusher.trigger("my-channel", "my-event", {
+//   message: "hello world"
+// });
 
 db.mongoose.connect(uri,{useNewUrlParser:true , useCreateIndex: true , useUnifiedTopology:true});
 const connection = db.mongoose.connection;

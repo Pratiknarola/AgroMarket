@@ -13,6 +13,7 @@ exports.createauction = (req,res) => {
 
     console.log("data received for auction is : \n ");
     console.log(req.body);
+    const auctionid = Math.random().toString(36).substring(2, 15);
 
     const auction = new Auction(
         {
@@ -24,7 +25,8 @@ exports.createauction = (req,res) => {
             owner : req.userid,
             description : req.body.description,
             startprice : req.body.startprice,
-            bids : []
+            bids : [],
+            tempId: auctionid
         }
     );
 
@@ -37,7 +39,10 @@ exports.createauction = (req,res) => {
 
         console.log("Auction is sccheduled by farmer and added to datbase");
         console.log("auction id is" + auctiondoc._id);
-
+        User.findById(req.userid).then(user=>{
+            user.auctionsParticipated.push(auctiondoc._id);
+            user.save();
+        });
         res.status(200).send({message: "Auction was added successfully"})
 
     });
