@@ -1,4 +1,5 @@
 import {useState,useEffect} from 'react'
+import {useHistory} from 'react-router-dom'
 import {Grid,Card,CardContent,Typography,Button,TextField,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle} from '@material-ui/core'
 import Countdown from 'react-countdown';
 
@@ -11,15 +12,16 @@ const Tile = ({crop}) => {
       
 
          const [canBid,setCanBid] = useState(true)
-         const [open, setOpen] = useState(false);
+         let history = useHistory()
 
-         const handleClickOpen = () => {
-           setOpen(true);
-         };
-       
-         const handleClose = () => {
-           setOpen(false);
-         };
+        const handleTile = ()=>{
+          if(canBid){
+          history.push(`/bidpage/${crop.id}`)
+          }else{
+            console.log('auction ended')
+          }
+
+        }
 
     const Completionist = () => <span>You are good to go!</span>;
 
@@ -38,7 +40,7 @@ const Tile = ({crop}) => {
         let val=d.getHours()*60+d.getMinutes();
         timer-=val;
         timer*=60000
-        console.log(timer)
+        //console.log(timer)
     }
 
 
@@ -47,7 +49,7 @@ const Tile = ({crop}) => {
         <>
         <Grid item xs={12}>
               {getTime()}
-            <Card style={{margin:'20px'}}>
+            <Card style={{margin:'20px'}} onClick={handleTile}>
                 <CardContent >
                     <div style={{float:'left',paddingBottom:'20px'}}>
                     <Typography style={{fontSize:'18px',}}>
@@ -61,22 +63,6 @@ const Tile = ({crop}) => {
                     </Typography>
                     </div>
 
-                    {canBid?<Button variant='contained' color='secondary' onClick={handleClickOpen} style={{margin:'20px'}}>BID</Button>:null}
-                    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
-          </DialogContentText>
-          <TextField fullWidth variant='outlined'/>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Bid
-          </Button>
-        </DialogActions>
-      </Dialog>
                     <div style={{float:'right',margin:'30px 0px',fontSize:'25px'}}>
                         <Countdown date={Date.now() + parseInt(timer)}  autostart={true}  renderer={renderer}/>
                     </div>

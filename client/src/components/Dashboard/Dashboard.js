@@ -18,15 +18,17 @@ const Dashboard = ({setUser}) => {
 
     const [crops,setCrops] = useState([
       {
+        id:1,
       name:'wheat',
       quantity:100,
       bidPrice:1000,
       startingTime:{
-        hh:13,
-        mm:40
+        hh:0,
+        mm:1
       }
     },
     {
+      id:2,
       name:'rice',
       quantity:200,
       bidPrice:5000,
@@ -36,6 +38,7 @@ const Dashboard = ({setUser}) => {
       }
     },
     {
+      id:3,
       name:'mustard',
       quantity:50,
       bidPrice:2000,
