@@ -13,10 +13,10 @@ const Tile = ({crop}) => {
 
          const [canBid,setCanBid] = useState(true)
          let history = useHistory()
-
+         
         const handleTile = ()=>{
           if(canBid){
-          history.push(`/bidpage/${crop.id}`)
+          history.push(`/bidpage/${crop.tempId}`)
           }else{
             console.log('auction ended')
           }
@@ -35,12 +35,12 @@ const Tile = ({crop}) => {
       };
 
     const getTime=()=>{
+      timer=crop.startdate+crop.duration*60;
+      let abhi = Math.floor(Date.now()/1000);
+      timer-=abhi;
+      timer*=1000
+     
 
-        timer=(crop.startingTime.hh+1)*60+crop.startingTime.mm;
-        let val=d.getHours()*60+d.getMinutes();
-        timer-=val;
-        timer*=60000
-        //console.log(timer)
     }
 
 
@@ -53,13 +53,13 @@ const Tile = ({crop}) => {
                 <CardContent >
                     <div style={{float:'left',paddingBottom:'20px'}}>
                     <Typography style={{fontSize:'18px',}}>
-                        <strong>{crop.name}</strong>
+                        <strong>{crop.description}</strong>
                     </Typography>
                     <Typography>
                         quantity:{crop.quantity}
                     </Typography>
                     <Typography>
-                        bid price:{crop.bidPrice}
+                        bid price:{crop.startprice}
                     </Typography>
                     </div>
 

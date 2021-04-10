@@ -67,7 +67,7 @@ const Login = ({setUser}) => {
         console.log(suc);
         setAlertMsg("Successfully Registered");
       } catch (error) {
-        setAlertMsg(error.response.data.message);
+        setAlertMsg(error.response?.data.message);
       }
       setOpen(true);
     } else {
@@ -78,12 +78,12 @@ const Login = ({setUser}) => {
         });
                  
        console.log(suc)
-          localStorage.setItem('profile',JSON.stringify(suc?.data.username))
-          setUser(JSON.parse(localStorage.getItem('profile')));
+          localStorage.setItem('profile',JSON.stringify(suc?.data))
+          setUser(JSON.parse(localStorage.getItem('profile')).accessToken);
          } catch (error) {
-          console.log(error.response.data.message)
+          console.log(error.response?.data.message)
          }
-       history.push('/dashboard')
+       history.push('/profile')
      }
   };
 

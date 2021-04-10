@@ -3,8 +3,8 @@ const controller = require("../controller/auth.controller");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
-    console.log("i m inside auth.rout.js");
-    console.log(req.body);
+   // console.log("i m inside auth.rout.js");
+   // console.log(req.body);
     res.header(
       "Access-Control-Allow-Headers",
       "x-access-token, Origin, Content-Type, Accept"

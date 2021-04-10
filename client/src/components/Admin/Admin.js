@@ -8,7 +8,7 @@ const Admin = () => {
 
   const classes = useStyles();
         return (
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="xs" style={{marginTop:'100px'}}>
               
               <Paper className={classes.paper} elevation={3}>
                 <Typography component="h1" variant="h5">
