@@ -6,18 +6,22 @@ const Role = db.role;
 
 verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
+    console.log(token)
+  console.log('i am in authjwt')
 
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }
 
+  //console.log(process.env.JWT_SECRET)
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      return res.status(401).send({ message: "Unauthorized!" });
+      console.log(err)
+      return res.status(401).send({ message: "err!" });
     }
     req.userid = decoded.id;
-    console.log(req.userid + "is the user id");
-    console.log(`decoded id is ${decoded.id}`);
+   // console.log(req.userid + "is the user id");
+   // console.log(`decoded id is ${decoded.id}`);
 
     next();
   });

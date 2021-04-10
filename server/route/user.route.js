@@ -16,7 +16,7 @@ module.exports = function (app) {
 
     app.get("/api/user/:username",[authJwt.verifyToken], controller.getprofile);
     app.get("/api/getpastauction", [authJwt.verifyToken, authJwt.isBuyer], controller.getpastauctions);
-    app.get("/api/getpresentauction", [authJwt.verifyToken, authJwt.isBuyer], controller.getpresentauctions);
+    app.get("/api/getpresentauction", [authJwt.verifyToken], controller.getpresentauctions);
     app.get("/api/getfutureauction", [authJwt.verifyToken, authJwt.isBuyer], controller.getfutureauctions);
 
     app.get(

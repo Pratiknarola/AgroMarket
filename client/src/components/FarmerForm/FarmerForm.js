@@ -1,32 +1,71 @@
 import React from 'react'
 import { RaisedButton, TextField } from 'material-ui';
 import { MuiThemeProvider } from 'material-ui/styles';
-import BasicDateTimePicker from './DateTimePicker';
+import axios from "axios";
+// import BasicDateTimePicker from './DateTimePicker';
 import { styles } from '@material-ui/lab/internal/pickers/PickersArrowSwitcher';
 
 const FarmerForm = () => {
     var state ={
-        'startdate' : "",
-        'duration' : "",
-        'harvestdate': "",
-        'quantity' : '',
-        'description': '',
-        'startprice' : ''
+        'startdateday' : 0,
+        'startdatemonth' : 0,
+        'startdateyear' : 0,
+        'startdatehour' : 0,
+        'startdateminute' : 0,
+        'startdatesecond' : 0,
+        'startdate' : 0,
+        'durationhour' : 0,
+        'durationminute' : 0,
+        'durationsecond' : 0,
+        'duration' : 0,
+        'harvestdateday': 0,
+        'harvestdatemonth': 0,
+        'harvestdateyear': 0,
+        'harvestdate' : 0,
+        'quantity' : 0,
+        'description': 0,
+        'startprice' : 0
     }
     var handleChange;
-    var handleDateValues;
+    // var handleDateValues;
     handleChange = input => (event) =>{
         state[input] = event.target.value;
         console.log(input + event.target.value);
     }
 
-    handleDateValues = (name, date) =>{
-        state[name] = date;
-        console.log(name + date + state[name]);
-    }
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const suc = await axios.post("", {//TODO: Add address here like : "localhost:3000/api/farmerform"
+                startdate: state.startdate,
+                duration: state.duration,
+                harvestdate: statee.harvestdate,
+                quantity: state.quantity,
+                description: state.description,
+                startprice: state.startprice,
+            });
+            console.log(suc);
+            setAlertMsg("Auction Successfully Registered");
+        } catch (error) {
+            setAlertMsg(error.response?.data.message);
+        }
+        setOpen(true);
+      };
+
+    // handleDateValues = (name, date) =>{
+    //     state[name] = date;
+    //     console.log(name + date + state[name]);
+    // }
 
     var submit = e => {
-        console.log(state['startdate'] + state['duration'] + state['harvestdate'] + state['quantity'] + state['description'] + state['startprice']  );
+        console.debug(state);
+
+        state['startdate'] = new Date(state['startdateday'] + " " + state['startdatemonth'] + " " + state['startdateyear'] + " " + state['startdatehour'] + " " + state['startdateminute'] + " " + state['startdatesecond']);
+        state['duration'] = new Date(state['durationhour'] + " " + state['durationminute'] + " " + state['durationsecond']);
+        state['harvestdate'] = new Date(state['harvestdateday'] + " " + state['harvestdatemonth'] + " " + state['harvestdateyear']);
+
+        handleSubmit();
+
       };
     return (
         <MuiThemeProvider>
@@ -34,15 +73,81 @@ const FarmerForm = () => {
         <br/>
         <h1>Farmer Form</h1>
         <br />
-        {BasicDateTimePicker('Start Date', state['startdate'], handleDateValues, 'startdate')}
-        <br/>
+        <div>Start Date </div>
+        {/* {BasicDateTimePicker('Start Date', state['startdate'], handleDateValues, 'startdate')} */}
+        <TextField 
+            style = {{width : 30, margin : 5}}
+            floatingLabelText = 'Day'
+            onChange = {handleChange('startdateday')}
+        />
+        <TextField 
+            style = {{width : 50, margin : 5}}
+            floatingLabelText = 'Month'
+            onChange = {handleChange('startdatemonth')}
+        />
+        <TextField 
+            style = {{width : 40, margin : 5}}
+            floatingLabelText = 'year'
+            onChange = {handleChange('startdateyear')}
+        />
         <br />
-        {BasicDateTimePicker('Duration', state['duration'], handleDateValues, 'duration')}
-        <br/>
-        <br/>
-        {BasicDateTimePicker('Harvest Date', state['harvestdate'], handleDateValues, 'harvestdate')}
-        <br/>
-        <br/>
+        <TextField 
+            style = {{width : 40, margin : 5}}
+            floatingLabelText = 'Hour'
+            onChange = {handleChange('startdatehour')}
+            type = {Number}
+        />
+        <TextField 
+            style = {{width : 50, margin : 5}}
+            floatingLabelText = 'Minute'
+            onChange = {handleChange('startdateminute')}
+        />
+        <TextField 
+            style = {{width : 50, margin : 5}}
+            floatingLabelText = 'Second'
+            onChange = {handleChange('startdatesecond')}
+        />
+        <br />
+        <div style = {{marginTop : 20, marginBottom : -10}}>Duration</div>
+
+        <TextField 
+            style = {{width : 40, margin : 5}}
+            floatingLabelText = 'Hour'
+            onChange = {handleChange('durationhour')}
+        />
+        <TextField 
+            style = {{width : 50, margin : 5}}
+            floatingLabelText = 'Minute'
+            onChange = {handleChange('durationminute')}
+        />
+        <TextField 
+            style = {{width : 50, margin : 5}}
+            floatingLabelText = 'Second'
+            onChange = {handleChange('durationsecond')}
+        />
+        <br />
+        {/* {BasicDateTimePicker('Duration', state['duration'], handleDateValues, 'duration')} */}
+
+        <div style = {{marginTop : 20, marginBottom : -5}}>Harvest Date</div>
+        <TextField 
+            style = {{width : 30, margin : 5}}
+            floatingLabelText = 'Day'
+            onChange = {handleChange('harvestdateday')}
+        />
+        <TextField 
+            style = {{width : 50, margin : 5}}
+            floatingLabelText = 'Month'
+            onChange = {handleChange('harvestdatemonth')}
+        />
+        <TextField 
+            style = {{width : 40, margin : 5}}
+            floatingLabelText = 'year'
+            onChange = {handleChange('harvestdateyear')}
+        />
+        <br />
+
+        {/* {BasicDateTimePicker('Harvest Date', state['harvestdate'], handleDateValues, 'harvestdate')} */}
+        <br />
         <TextField 
             hintText = 'Enter Quantity'
             floatingLabelText = 'Quantity'
