@@ -133,9 +133,9 @@ exports.signin = (req, res) => {
           message: "Invalid Password!",
         });
       }
-
+      let time = 86400*30;
       var token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-        expiresIn: 86400, // 24 hours
+        expiresIn: time, // 24 hours
       });
 
       console.log("token is "+ token);
