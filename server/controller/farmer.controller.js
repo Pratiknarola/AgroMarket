@@ -46,26 +46,26 @@ exports.createauction = (req, res) => {
       user.save();
     });
 
-    const pusher = new Pusher({
-      appId: process.env.PUSHER_APPID,
-      key: process.env.PUSHER_KEY,
-      secret: process.env.PUSHER_SECRET,
-      cluster: process.env.PUSHER_CLUSTER,
-      useTLS: true,
-    });
-    const channel = "auctions";
-    const changestream = Auction.watch();
-    changestream.on("change", (change) => {
-      console.log(change);
-      if (change.operationType === "update") {
-        const task = change.fullDocument;
-        pusher.trigger(channel, "updated", {
-          eventid: change._id,
-          auctionid: task._id,
-          bids: task.bids,
-        });
-      }
-    });
+    // const pusher = new Pusher({
+    //   appId: process.env.PUSHER_APPID,
+    //   key: process.env.PUSHER_KEY,
+    //   secret: process.env.PUSHER_SECRET,
+    //   cluster: process.env.PUSHER_CLUSTER,
+    //   useTLS: true,
+    // });
+    // const channel = "auctions";
+    // const changestream = Auction.watch();
+    // changestream.on("change", (change) => {
+    //   console.log(change);
+    //   if (change.operationType === "update") {
+    //     const task = change.fullDocument;
+    //     pusher.trigger(channel, "updated", {
+    //       eventid: change._id,
+    //       auctionid: task._id,
+    //       bids: task.bids,
+    //     });
+    //   }
+    // });
     res.status(200).send({ message: "Auction was added successfully" });
   });
 };

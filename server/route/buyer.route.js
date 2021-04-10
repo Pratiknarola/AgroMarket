@@ -7,4 +7,5 @@ module.exports = function (app) {
     [authJwt.verifyToken, authJwt.isBuyer],
     controller.addbid
   );
+
 };

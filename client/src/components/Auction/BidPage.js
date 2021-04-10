@@ -78,7 +78,8 @@ const BidPage = () => {
             <Typography component='h1' variant='h5' style={{margin:'10px'}}>
                 LeaderBoard
             </Typography>
-          
+          </form>
+          </Grid>
             </Paper>
         </Container>
     )
