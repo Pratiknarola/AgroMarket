@@ -9,6 +9,8 @@ server/node_modules
 server/.env
 client/.env
 .env
+client/package-lock.json
+client/package.json
 
 .idea/
 # testing
