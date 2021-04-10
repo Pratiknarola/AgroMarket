@@ -23,7 +23,7 @@ exports.getpastauctions = async (req, res) => {
       mypast.push(doc);
     }
   }
-  res.status(200).send(mypast)
+  res.status(200).send(mypast);
 };
 
 exports.getpresentauctions = async (req, res) => {
@@ -36,7 +36,7 @@ exports.getpresentauctions = async (req, res) => {
       mypresent.push(doc);
     }
   }
-  res.status(200).send(mypresent)
+  res.status(200).send(mypresent);
 };
 
 exports.getfutureauctions = async (req, res) => {
@@ -49,7 +49,7 @@ exports.getfutureauctions = async (req, res) => {
       myfuture.push(doc);
     }
   }
-  res.status(200).send(myfuture)
+  res.status(200).send(myfuture);
 };
 
 exports.allAccess = (req, res) => {
