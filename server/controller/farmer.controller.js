@@ -49,6 +49,35 @@ exports.createauction = (req,res) => {
         res.status(200).send({message: "Auction was added successfully"})
 
     });
+};
+
+exports.getcroplist = (req, res) => {
+    console.log("data received for getcroplist is : \n ");
+    console.log(req.params);
+
+    User.findOne({
+        username: req.params.username
+    }).exec((err, user) => {
+        if(err){
+            res.status(500).send({message: "Error!"});
+        }
+        if(!user) {
+            res.status(404).send({message: "User not found!"});
+        }
+
+        let userid = user._id;
+        const farmer = Farmer.findOne({
+            id: userid
+        }).populate("crops")
+            .exec((err, farmeruser) =>{
+            if(err){
+                res.status(500).send({message: "Error! populate"});
+            }
+            console.log(farmeruser);
+            res.status(200).send(farmeruser);
+        })
+
+    })
 
 
 };

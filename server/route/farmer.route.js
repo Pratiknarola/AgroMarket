@@ -10,4 +10,6 @@ module.exports = function (app) {
         [authJwt.verifyToken, authJwt.isFarmer],
         controller.createauction
     );
+
+    app.get("/api/farmer/getcrop/:username", [[authJwt.verifyToken, authJwt.isFarmer], controller.getcroplist])
 };
