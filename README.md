@@ -19,8 +19,9 @@ As students of computer science we have tried our best to make something for the
 # Features to Scroll!
  
 * [Models](https://github.com/Pratiknarola/AgroMarket/blob/master/README.md#L28)
-* [functions](https://github.com/Pratiknarola/safesenora/blob/master/README.md#L39)
-* [Technologies](https://github.com/Pratiknarola/safesenora/blob/master/README.md#L46)
+* [functions](https://github.com/Pratiknarola/AgroMarket/blob/master/README.md#L36)
+* [Technologies](https://github.com/Pratiknarola/AgroMarket/blob/master/README.md#L44)
+* [Future scope](https://github.com/Pratiknarola/AgroMarket/blob/master/README.md#L52)
 
 
 
