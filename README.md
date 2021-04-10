@@ -1,6 +1,6 @@
 <h1 align="center">AgroMarket</h1>
 <p align="center">
-<img src="https://github.com/Pratiknarola/AgroMarket/blob/master/image.png" width="133" height="160"/>
+<img src="https://github.com/Pratiknarola/AgroMarket/blob/master/image.png" width="200" height="180"/>
 </p>
  
 
