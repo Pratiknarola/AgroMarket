@@ -24,6 +24,8 @@ exports.getpastauctions = async (req, res) => {
 };
 
 exports.getpresentauctions = async (req, res) => {
+
+       
     const timenow = Math.floor(Date.now() / 1000);
 
     const present = Auction.find({startdate: {$lt: timenow}});
