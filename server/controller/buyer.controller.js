@@ -14,22 +14,27 @@ exports.addbid = (req, res) => {
   console.log(req.body);
 
   const auctionid = req.body.auctionid;
-
-  Auction.findById(auctionid)
-    .then((auction) => {
-      auction.bids.push({
-        bidby: req.userid,
-        bidprice: req.body.bidprice,
-        time: req.body.time,
-      });
-      console.log("i found the auction for bid to place in");
-      auction.save((err, auction) => {
-        if (err) {
-          res.status(500).send({ message: err });
-          return;
-        }
-        console.log("bid added to auction successfully.");
-      });
+  console.log(auctionid + " is the auctionid");
+  Auction.updateOne(
+    { _id: auctionid },
+    {
+      $push: {
+        bids: {
+          $each: [
+            {
+              bidby: req.userid,
+              bidprice: req.body.bidprice,
+              time: req.body.time,
+            },
+          ],
+          $sort: { bidprice: -1 },
+          $slice: 10,
+        },
+      },
+    }
+  )
+    .then(() => {
+      console.log("bid added to auction successfully in a sorted manner ");
       let flag = false;
       User.findById(req.userid).then((user) => {
         user.auctionsParticipated.forEach((element) => {
@@ -42,7 +47,7 @@ exports.addbid = (req, res) => {
           user.auctionsParticipated.push(auctionid);
           user.save();
         }
-        res.status(200).send("bid added to auction successfully.");
+        res.status(200).send("bid added to auctionn successfully.");
       });
     })
     .catch((err) => {
