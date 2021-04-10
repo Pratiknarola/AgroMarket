@@ -1,7 +1,6 @@
 <h1 align="center">AgroMarket</h1>
 <p align="center">
-<img src="https://github.com/Pratiknarola/AgroMarket/blob/master/image.png" width="200" height="180"/>
-</p>
+<a href="https://hack36.com"> <img src="http://bit.ly/BuiltAtHack36" height=20px> </a></p>
  
 
 AgroMarket is a web app built using <a href="https://nodejs.org/en/docs/">Node.js</a>, <a href="https://expressjs.com/"> Express.js</a>, <a href="https://reactjs.org/"> React.js</a>, and <a href="https://www.mongodb.com/"> MongoDB</a>. 
@@ -15,6 +14,11 @@ On AgroMarket, Farmers should get a lot more reach of buyers and buyers will get
 Obviously there are also few drawbacks of platforms like this, but we have tried our best to make the platform better than traditional auctions. 
 
 As students of computer science we have tried our best to make something for the benefit of society.
+
+# Demo video link
+
+# Presentation
+
 
 # Features to Scroll!
  
@@ -54,6 +58,15 @@ As students of computer science we have tried our best to make something for the
 * Suggest market requirements based on ongoing and scheduled auctions
 * Link  the complete payment gateway with platform 
 
+
+
+# Contributors
+
+* Team name: Bug hunters
+* [Pratik Narola](https://github.com/Pratiknarola)
+* [Rohit Kumar](https://github.com/Rohit323615)
+* [Harsh Soni](https://github.com/meliodas-0)
+* [Nikhar Shah](https://github.com/ukkin)
 
 ### Installation
 
