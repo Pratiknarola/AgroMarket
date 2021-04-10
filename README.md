@@ -9,7 +9,7 @@ During the covid period, one of the big issues we faced was having a sustainable
 
 Traditionally, in most of villages and cities, auctions are held in market yard everyday by farmers to sell their produces. With covid situation, its next to impossible to manage social distancing in that chaos. 
 
-With AgroMarket, we are hoping to make the auction process a little more trasparent and easy. 
+With AgroMarket, we are hoping to make the auction process a little more transparent and easy. 
 On AgroMarket, Farmers should get a lot more reach of buyers and buyers will get many more options to buy produces from, which will also motivate farmers to improve their production quality and quantity. 
 Obviously there are also few drawbacks of platforms like this, but we have tried our best to make the platform better than traditional auctions. 
 
