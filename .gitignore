@@ -7,6 +7,7 @@
 
 server/node_modules
 server/.env
+client/.env
 .env
 
 .idea/
