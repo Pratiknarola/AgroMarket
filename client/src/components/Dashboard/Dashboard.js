@@ -42,7 +42,7 @@ const Dashboard = ({setUser}) => {
 
 <ListItem button color='inherit' component={Link} to='/admin'>
   <ListItemText>
-    Admin
+    AddCrop
   </ListItemText>
 </ListItem>
 
@@ -53,7 +53,7 @@ const Dashboard = ({setUser}) => {
 </ListItem>
 <ListItem button color='inherit' component={Link} to='/addcrop'>
   <ListItemText>
-    Addcrop
+    createAuc
   </ListItemText>
 </ListItem>
 </List>

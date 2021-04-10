@@ -6,7 +6,7 @@ const Role = db.role;
 
 verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
-    console.log(req.body)
+    console.log(token)
   console.log('i am in authjwt')
 
   if (!token) {

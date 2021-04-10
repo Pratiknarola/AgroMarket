@@ -2,6 +2,7 @@ import {useState} from 'react'
 import {Paper,Grid,Button,TextField,Container,Typography} from '@material-ui/core'
 import {useParams} from 'react-router-dom'
 import axios from 'axios'
+import Leaderboard from './Leaderboard.js'
 const BidPage = () => {
     const accessToken = JSON.parse(localStorage.getItem('profile')).accessToken;
     const {id} = useParams()
@@ -54,6 +55,7 @@ const BidPage = () => {
             <Typography component='h1' variant='h5' style={{margin:'10px'}}>
                 LeaderBoard
             </Typography>
+          
             </Paper>
         </Container>
     )
