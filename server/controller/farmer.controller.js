@@ -25,7 +25,11 @@ exports.createauction = (req,res) => {
             owner : req.userid,
             description : req.body.description,
             startprice : req.body.startprice,
-            bids : [],
+            bids : [{
+              bidby: req.userid,
+              bidprice: req.body.startprice,
+              time: req.body.startdate
+            }],
             tempId: auctionid
         }
     );
@@ -36,7 +40,6 @@ exports.createauction = (req,res) => {
             res.status(500).send({message: err});
             return;
         }
-
         console.log("Auction is sccheduled by farmer and added to datbase");
         console.log("auction id is" + auctiondoc._id);
         User.findById(req.userid).then(user=>{
