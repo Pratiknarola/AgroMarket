@@ -4,7 +4,7 @@
 </p>
  
 
-AgroMarket is a web app built using <a href="https://nodejs.org/en/docs/">Node.js</a>, <a href="https://expressjs.com/"> Express.js</a>, <a href="https://reactjs.org/"> React.js</a>, and <a href="https://www.mongodb.com/"> MongoDB. 
+AgroMarket is a web app built using <a href="https://nodejs.org/en/docs/">Node.js</a>, <a href="https://expressjs.com/"> Express.js</a>, <a href="https://reactjs.org/"> React.js</a>, and <a href="https://www.mongodb.com/"> MongoDB</a>. 
 
 During the covid period, one of the big issues we faced was having a sustainable supply chain of food items. i.e. vegetables, grains(wheat, rice etc). 
 
