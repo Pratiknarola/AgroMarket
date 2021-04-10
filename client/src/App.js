@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard/Dashboard'
 import BidPage from './components/Auction/BidPage'
 import Admin from './components/Admin/Admin'
 import Leaderboard from './components/Auction/Leaderboard'
+import FarmerForm from './components/FarmerForm/FarmerForm'
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -28,6 +29,7 @@ function App() {
       <Route path='/bidpage/:id' ><BidPage/></Route>
       <Route path='/admin'><Admin/></Route>
       <Route path='/leader'><Leaderboard/></Route>
+      <Route path='/createauction'><FarmerForm/></Route>
       </Switch>
     </Router>
   );
