@@ -5,6 +5,7 @@ import Auction from './components/Auction/Auction'
 import Dashboard from './components/Dashboard/Dashboard'
 import BidPage from './components/Auction/BidPage'
 import Admin from './components/Admin/Admin'
+import Leaderboard from './components/Auction/Leaderboard'
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
       <Route path='/auction'> <Auction /></Route>
       <Route path='/bidpage/:id' ><BidPage/></Route>
       <Route path='/admin'><Admin/></Route>
+      <Route path='/leader'><Leaderboard/></Route>
       </Switch>
       
     </Router>
