@@ -18,6 +18,7 @@ As students of computer science we have tried our best to make something for the
 # Demo video link
 
 # Presentation
+[Link](https://drive.google.com/file/d/1dL0XajUnykuLuM-YNIj3ri0emXGzqGxx/view?usp=sharing)
 
 
 # Features to Scroll!
