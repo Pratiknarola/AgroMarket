@@ -19,7 +19,7 @@ exports.getleaderboard = (req, res) => {
     if (err) {
       res.status(500).send({ message: err });
     }
-    console.log("i m getting the leaderboard");
+    //console.log("i m getting the leaderboard");
     let bids = []  ;
     auctiondoc.bids.forEach(element => {
         bids.push({
@@ -29,7 +29,7 @@ exports.getleaderboard = (req, res) => {
             "time":element.time
         });
     });
-    console.log(bids);
+    ////console.log(bids);
     res.status(200).send(bids);
   });
 };

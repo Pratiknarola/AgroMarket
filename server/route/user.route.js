@@ -15,12 +15,12 @@ module.exports = function (app) {
     app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
 
     app.get("/api/user/:username",[authJwt.verifyToken], controller.getprofile);
-    app.get("/api/getpastauction", [authJwt.verifyToken, authJwt.isBuyer], controller.getpastauctions);
+    app.get("/api/getpastauction", [authJwt.verifyToken], controller.getpastauctions);
     app.get("/api/getpresentauction", [authJwt.verifyToken], controller.getpresentauctions);
-    app.get("/api/getfutureauction", [authJwt.verifyToken, authJwt.isBuyer], controller.getfutureauctions);
+    app.get("/api/getfutureauction", [authJwt.verifyToken], controller.getfutureauctions);
     
     app.get(
-        "/api/:auctionid/leaderboad",
+        "/api/:auctionid/leaderboard",
         [authJwt.verifyToken],
         controller.getleaderboard
     );

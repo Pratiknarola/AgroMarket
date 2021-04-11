@@ -13,9 +13,12 @@ export default class Leaderboard extends Component {
   }
 
   componentDidMount() {
-    this.pusher = new Pusher(process.env.PUSHER_KEY, {
+    this.pusher = new Pusher({
+      appId: process.env.PUSHER_APPID,
+      key: process.env.PUSHER_KEY,
+      secret: process.env.PUSHER_SECRET,
       cluster: process.env.PUSHER_CLUSTER,
-      encrypted: true,
+       encrypted:true
     });
     this.channel = this.pusher.subscribe("auctions");
 
