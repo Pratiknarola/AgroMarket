@@ -8,18 +8,24 @@ var d = new Date();
 let timer=0;
 
 
-const Tile = ({crop}) => {
+const Tile = ({crop,tense,setOpen}) => {
       
 
          const [canBid,setCanBid] = useState(true)
          let history = useHistory()
          
         const handleTile = ()=>{
+          if(tense==='future'){
+            console.log('you can not bid in future auctions')
+            setOpen(true)
+          }
+          else{
           if(canBid){
           history.push(`/bidpage/${crop.tempId}`)
           }else{
             console.log('auction ended')
           }
+        }
 
         }
 
@@ -49,7 +55,7 @@ const Tile = ({crop}) => {
         <>
         <Grid item xs={12}>
               {getTime()}
-            <Card style={{margin:'20px'}} >
+            <Card style={{margin:'20px'}} onClick={handleTile} >
                 <CardContent >
                     <div style={{float:'left',paddingBottom:'20px'}}>
                     <Typography style={{fontSize:'18px',}}>

@@ -8,7 +8,8 @@ import {useHistory,Link} from 'react-router-dom'
 
 const Dashboard = ({setUser}) => {
    // const accessToken ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzBiMWY3ODllYmFmMTBhOGM0NTA3NyIsImlhdCI6MTYxNzk5OTA1OSwiZXhwIjoxNjE4MDg1NDU5fQ.OBjtP3SotKqM73h7msDmGVEm0dYZ5YYb9NXSakdQ10Y'
-    const classes = useStyles();
+    const role=JSON.parse(localStorage.getItem("profile"))?.roles[0];
+   const classes = useStyles();
     let history = useHistory();
 
     
@@ -25,6 +26,7 @@ const Dashboard = ({setUser}) => {
   
     return (
       <div className={classes.root}>
+            {console.log(role)}
         <CssBaseline />
         <AppBar position="absolute">
           <Toolbar className={classes.toolbar}>
@@ -40,22 +42,27 @@ const Dashboard = ({setUser}) => {
   </ListItemText>
 </ListItem>
 
-<ListItem button color='inherit' component={Link} to='/admin'>
+{
+  role==='admin'?<ListItem button color='inherit' component={Link} to='/admin'>
   <ListItemText>
     AddCrop
   </ListItemText>
-</ListItem>
+</ListItem>:null
+}
+
 
 <ListItem button color='inherit' component={Link} to='/auction'>
   <ListItemText>
     Auction
   </ListItemText>
 </ListItem>
-<ListItem button color='inherit' component={Link} to='/addcrop'>
+
+{role!=='buyer'?<ListItem button color='inherit' component={Link} to='/createauction'>
   <ListItemText>
     createAuc
   </ListItemText>
-</ListItem>
+</ListItem>:null}
+
 </List>
             <IconButton color="inherit" onClick={logout}>
                 <ExitToAppRoundedIcon />
