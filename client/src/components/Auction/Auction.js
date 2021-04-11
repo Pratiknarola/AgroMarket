@@ -1,4 +1,3 @@
-
 import {useState,useEffect} from 'react'
 import {Container,Grid,Typography,IconButton} from '@material-ui/core'
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
@@ -39,7 +38,7 @@ const Auction = () => {
     setCrops2(result2.data);
     console.log(crops2);
     const result3 = await axios.get(
-      "http://localhost:8080/api/getfutureauction",
+      "http://localhost:8080/api/getpastauction",
       {
         headers: {
           "x-access-token": accessToken,
@@ -66,7 +65,7 @@ const Auction = () => {
     <>
     <Container maxWidth="lg" style={{ marginTop: "100px" }}>
       <Typography>
-        Present Contests
+        Present Auction
         <IconButton size="small" color="inherit">
           {drop1 ? (
             <ArrowDropUpIcon onClick={handleClick1} />
@@ -81,7 +80,7 @@ const Auction = () => {
     </Container>
     <Container maxWidth="lg" style={{ marginTop: "50px" }}>
     <Typography>
-      Future Contests
+      Future Auction
       <IconButton size="small" color="inherit">
         {drop2 ? (
           <ArrowDropUpIcon onClick={handleClick2} />
@@ -96,7 +95,7 @@ const Auction = () => {
   </Container>
   <Container maxWidth="lg" style={{ marginTop: "50px" }}>
     <Typography>
-      Past Contests
+      Past Auction
       <IconButton size="small" color="inherit">
         {drop3 ? (
           <ArrowDropUpIcon onClick={handleClick3} />

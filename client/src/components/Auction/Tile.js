@@ -3,7 +3,7 @@ import {useHistory} from 'react-router-dom'
 import {Grid,Card,CardContent,Typography,Button,TextField,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle} from '@material-ui/core'
 import Countdown from 'react-countdown';
 
-const Completionist = () => <span>You are good to go!</span>;
+
 var d = new Date();
 let timer=0;
 
@@ -23,7 +23,7 @@ const Tile = ({crop}) => {
 
         }
 
-    const Completionist = () => <span>You are good to go!</span>;
+    const Completionist = () => <span>Auction Completed!</span>;
 
     const renderer = ({ hours, minutes, seconds, completed }) => {
         if (completed) {
@@ -49,7 +49,7 @@ const Tile = ({crop}) => {
         <>
         <Grid item xs={12}>
               {getTime()}
-            <Card style={{margin:'20px'}} onClick={handleTile}>
+            <Card style={{margin:'20px'}} >
                 <CardContent >
                     <div style={{float:'left',paddingBottom:'20px'}}>
                     <Typography style={{fontSize:'18px',}}>
