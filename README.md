@@ -16,6 +16,7 @@ Obviously there are also few drawbacks of platforms like this, but we have tried
 As students of computer science we have tried our best to make something for the benefit of society.
 
 # Demo video link
+[Link](https://drive.google.com/drive/folders/10wVOovgC7Qhul5Q0V_esnrZhA6CtYThA?usp=sharing)
 
 # Presentation
 [Link](https://drive.google.com/file/d/1dL0XajUnykuLuM-YNIj3ri0emXGzqGxx/view?usp=sharing)
