@@ -18,7 +18,7 @@ export default class Leaderboard extends Component {
       key: process.env.PUSHER_KEY,
       secret: process.env.PUSHER_SECRET,
       cluster: process.env.PUSHER_CLUSTER,
-       encrypted:true
+      encrypted: true,
     });
     this.channel = this.pusher.subscribe("auctions");
 
@@ -33,8 +33,6 @@ export default class Leaderboard extends Component {
   }
 
   render() {
-    return <div>
-      {console.log(this.bids)}
-    </div>;
+    return <div>{console.log(this.bids)}</div>;
   }
 }

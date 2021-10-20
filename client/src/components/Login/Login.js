@@ -31,7 +31,7 @@ const initialState = {
   confirmPassword: "",
 };
 
-const Login = ({setUser}) => {
+const Login = ({ setUser }) => {
   const [open, setOpen] = useState(false);
   const [alertmsg, setAlertMsg] = useState("");
   const [roles, setRoles] = useState([]);
@@ -76,15 +76,15 @@ const Login = ({setUser}) => {
           username: formData.username,
           password: formData.password,
         });
-                 
-       console.log(suc)
-          localStorage.setItem('profile',JSON.stringify(suc?.data))
-          setUser(JSON.parse(localStorage.getItem('profile')).accessToken);
-         } catch (error) {
-          console.log(error.response?.data.message)
-         }
-       history.push('/profile')
-     }
+
+        console.log(suc);
+        localStorage.setItem("profile", JSON.stringify(suc?.data));
+        setUser(JSON.parse(localStorage.getItem("profile")).accessToken);
+      } catch (error) {
+        console.log(error.response?.data.message);
+      }
+      history.push("/profile");
+    }
   };
 
   const handleChange = (e) => {

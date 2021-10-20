@@ -15,23 +15,25 @@ require("dotenv").config();
 exports.getleaderboard = (req, res) => {
   Auction.findOne({
     tempId: req.params.auctionid,
-  }).populate("bids.bidby").exec((err, auctiondoc) => {
-    if (err) {
-      res.status(500).send({ message: err });
-    }
-    //console.log("i m getting the leaderboard");
-    let bids = []  ;
-    auctiondoc.bids.forEach(element => {
+  })
+    .populate("bids.bidby")
+    .exec((err, auctiondoc) => {
+      if (err) {
+        res.status(500).send({ message: err });
+      }
+      //console.log("i m getting the leaderboard");
+      let bids = [];
+      auctiondoc.bids.forEach((element) => {
         bids.push({
-            "username":element.bidby.username,
-            "bidby":element.bidby._id,
-            "bidprice":element.bidprice,
-            "time":element.time
+          username: element.bidby.username,
+          bidby: element.bidby._id,
+          bidprice: element.bidprice,
+          time: element.time,
         });
+      });
+      ////console.log(bids);
+      res.status(200).send(bids);
     });
-    ////console.log(bids);
-    res.status(200).send(bids);
-  });
 };
 
 exports.getpastauctions = async (req, res) => {

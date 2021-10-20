@@ -1,6 +1,6 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -9,18 +9,18 @@ body {
   margin-right: 2;
   margin-top: 0;
   margin-bottom: 0;
-    background-image: url('https://images.unsplash.com/photo-1511735643442-503bb3bd348a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y3JvcHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+  background-image: url("https://images.unsplash.com/photo-1511735643442-503bb3bd348a?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8Y3JvcHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
-.header{
+.header {
   display: flex;
   margin-bottom: 20px;
 }
 
-.container{
+.container {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 20px;
   border: 1px solid grey;
@@ -30,13 +30,13 @@ body {
   min-width: 900px;
 }
 
-.imgStyle{
+.imgStyle {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   width: 500px;
 }
 
-.card_container{
+.card_container {
   background-color: white;
   border-radius: 20px;
   margin: 10px;
@@ -44,16 +44,16 @@ body {
   z-index: 5;
 }
 
-.padding10{
+.padding10 {
   padding: 10px;
 }
 
-html{
+html {
   height: 100%;
   margin: 0;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
