@@ -126,19 +126,19 @@ exports.signin = (req, res) => {
         req.body.password,
         user.password
       );
-        console.log("checking password");
+      console.log("checking password");
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
           message: "Invalid Password!",
         });
       }
-      let time = 86400*30;
+      let time = 86400 * 30;
       var token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
         expiresIn: time, // 24 hours
       });
 
-      console.log("token is "+ token);
+      console.log("token is " + token);
 
       var authorities = [];
 

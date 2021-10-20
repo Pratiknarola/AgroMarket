@@ -3,7 +3,7 @@ const User = db.user;
 const Role = db.role;
 const Farmer = db.farmer;
 const Crop = db.crop;
-const Auction = db.auction;
+const Auction = db.auction; 
 require("dotenv").config();
 
 var jwt = require("jsonwebtoken");

@@ -28,7 +28,7 @@ function App() {
       <Route path='/auction'> <Auction /></Route>
       <Route path='/bidpage/:id' ><BidPage/></Route>
       <Route path='/admin'><Admin/></Route>
-      <Route path='/leader'><Leaderboard/></Route>
+      <Route path='/leaderboard'><Leaderboard/></Route>
       <Route path='/createauction'><FarmerForm/></Route>
       </Switch>
     </Router>
