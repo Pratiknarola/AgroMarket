@@ -1,17 +1,19 @@
 const mongoose = require("mongoose");
 
 const Farmer = mongoose.model(
-    "Farmer",
-    new mongoose.Schema({
-      id: {
+  "Farmer",
+  new mongoose.Schema({
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    crops: [
+      {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        ref: "Crop",
       },
-      crops:[{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Crop"
-      }]
-    })
-  );
+    ],
+  })
+);
 
-  module.exports = Farmer;
+module.exports = Farmer;
