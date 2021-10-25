@@ -8,26 +8,28 @@ const User = mongoose.model(
     password: String,
     status: {
       type: String,
-      enum: ['Pending', 'Active'],
-      default: 'Pending'
+      enum: ["Pending", "Active"],
+      default: "Pending",
     },
     confirmationCode: {
       type: String,
-      unique: true
+      unique: true,
     },
     roles: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Role"
-      }
+        ref: "Role",
+      },
     ],
     firstname: String,
     lastname: String,
-    rating : Number,
-    auctionsParticipated : [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Auction",
-    }],
+    rating: Number,
+    auctionsParticipated: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Auction",
+      },
+    ],
   })
 );
 
