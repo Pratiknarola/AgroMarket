@@ -13,7 +13,7 @@ const AuctionCard = ({ user }) => {
         </h4>
 
         <div style={{ overflow: "auto", maxHeight: "300px" }}>
-          {user.auctionsParticipated.map((item, index) => (
+          {user.auctionsParticipated? user.auctionsParticipated.map((item, index) => (
             <div key={index} style={{ margin: "10px" }}>
               <AuctionTile auction={item} />
               <div
@@ -23,8 +23,11 @@ const AuctionCard = ({ user }) => {
                   opacity: 0.3,
                 }}
               />
-            </div>
-          ))}
+              </div>
+          )) : 
+          <div style={{ margin: "10px" }}>
+            <h4>No Auctions Participated</h4>
+          </div>}
         </div>
       </div>
     </div>

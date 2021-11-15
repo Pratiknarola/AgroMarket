@@ -12,10 +12,13 @@ const ProfileCard = ({ user }) => {
       <img
         src="https://res.cloudinary.com/dk-find-out/image/upload/q_80,w_1920,f_auto/A-Corbis-TL007642_brkxd1.jpg"
         className="imgStyle"
+        height="200px"
+        width="200px"
+        style={{display: "inline-block"}}
       />
-      <div style={{ display: "table", margin: "0 auto" }}>
+      <div style={{ display: "table", margin: "0 auto",  display: "inline-block", padding: "20px"}}>
         <h5 style={h5Style}>
-          <AiOutlineUser style={{ marginRight: "5px" }} />
+          <AiOutlineUser style={{ marginRight: "5px", height: "1.5em", width: "1.5em"}} />
           {user.firstname} {user.lastname}
         </h5>
         <h5
@@ -27,22 +30,22 @@ const ProfileCard = ({ user }) => {
               : yellowStyle
           }
         >
-          <FcRating style={{ marginRight: "5px" }} />
+          <FcRating style={{ marginRight: "5px", height: "1.5em", width: "1.5em" }} />
           <span>{user.rating}</span>
         </h5>
         <h5 style={h5Style}>
-          <HiUserCircle style={{ marginRight: "5px" }} />
+          <HiUserCircle style={{ marginRight: "5px", height: "1.5em", width: "1.5em" }} />
           {user.username}
         </h5>
         <h5 style={h5Style}>
-          <MdEmail style={{ marginRight: "5px" }} />
+          <MdEmail style={{ marginRight: "5px", height: "1.5em", width: "1.5em" }} />
           {user.email}
         </h5>
         <h5 style={user.status == "Active" ? greenStyle : redStyle}>
           {user.status == "Active" ? (
-            <GrStatusGood style={{ marginRight: "5px" }} />
+            <GrStatusGood style={{ marginRight: "5px", height: "1.5em", width: "1.5em" }} />
           ) : (
-            <GrStatusCritical style={{ marginRight: "5px" }} />
+            <GrStatusCritical style={{ marginRight: "5px", height: "1.5em", width: "1.5em" }} />
           )}
           {user.status}
         </h5>

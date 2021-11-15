@@ -62,6 +62,19 @@ const Dashboard = ({ setUser }) => {
               <ListItemText>Auction</ListItemText>
             </ListItem>
 
+            {role ==="farmer" ? (
+              <ListItem button color="inherit" component={Link} to="/predict">
+              <ListItemText style={{ color: "inherit" }}>Predict production</ListItemText>
+            </ListItem>
+            ) : null
+            }
+            {role ==="farmer" ? (
+              <ListItem button color="inherit" component={Link} to="/suggest">
+              <ListItemText style={{ color: "inherit" }}>Crop suggestion</ListItemText>
+            </ListItem>
+            ) : null
+            }
+
             {role !== "buyer" ? (
               <ListItem
                 button
