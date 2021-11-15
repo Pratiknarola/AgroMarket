@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 import axios from "axios";
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
 
 // create a form with
 // a text input for N with max value of 140
@@ -12,7 +13,18 @@ import axios from "axios";
 // a text input for rainfall with max value of 300
 // a number input for ph with value between 0 and 14
 // a button to submit the form which would send the data to the server
-// with url : https://prediction-xipqzrlqna-el.a.run.app/crop
+// with url : https://mlagrohelp-xipqzrlqna-el.a.run.app/crop
+
+// create a react component which will display the result recieved from the server
+// it should be a modal which will display the result
+// it should have a button which will close the modal
+// it will show the result below suggestion page
+// it should use bootstrap classes
+// it should show the entered value and the result recieved from the server
+// it should also show the error message if any
+// it should also show the success message if the suggestion is successful
+// it should also show the loading message if the server is processing the request
+// it should also show the error message if the server is not responding
 
 const SuggestionPage = ({ user }) => {
 	const [suggestion, setSuggestion] = useState({
@@ -24,6 +36,23 @@ const SuggestionPage = ({ user }) => {
 		rainfall: "",
 		ph: "",
 	});
+
+	const handleClose = () => {
+		setSuggestion({
+			N: "",
+			P: "",
+			K: "",
+			temperature: "",
+			humidity: "",
+			rainfall: "",
+			ph: "",
+		});
+	};
+
+	const handlePredictClose = () => {
+		setSuggestionResult(null)
+	}
+
 
 	useEffect(() => {
 		setSuggestion({
@@ -37,7 +66,7 @@ const SuggestionPage = ({ user }) => {
 		});
 	}, []);
 
-	const [suggestionResult, setSuggestionResult] = useState("");
+	const [suggestionResult, setSuggestionResult] = useState(null);
 
 	const handleSubmit = (e) => {
 		console.log("handle submit called");
@@ -57,7 +86,7 @@ const SuggestionPage = ({ user }) => {
 		e.preventDefault();
 		axios
 			.post(
-				"https://prediction-xipqzrlqna-el.a.run.app/crop",
+				"https://mlagrohelp-xipqzrlqna-el.a.run.app/crop",
 				suggestion,
 				{
 					headers: {
@@ -66,8 +95,8 @@ const SuggestionPage = ({ user }) => {
 				}
 			)
 			.then((res) => {
-				console.log("request successful", res);
-				// setSuggestionResult(res.data);
+				console.log("request successful", res.data);
+				setSuggestionResult(res.data);
 				localStorage.setItem("suggestionResult", res.data);
 			})
 			.catch((err) => {
@@ -198,155 +227,271 @@ const SuggestionPage = ({ user }) => {
 	};
 
 	return (
-		<div style={containerstyle}>
-            <style>
-                {`
-                    button:hover {
-                        background-color: #38a3c7 !important;
-                        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-                        cursor: pointer;
-                    }
-                `}
-            </style>
-			<h1> Suggestion Page </h1>{" "}
-			<form style={formstyle}>
-				<label style={labelstyle}>
-					N:
-					<input
-						type="text"
-						name="N"
-						onChange={handleChange}
-						value={suggestion.N}
-                        style={inputstyle}
-					/>{" "}
-				</label>{" "}
-				<label style={labelstyle}>
-					P:
-					<input
-						type="text"
-						name="P"
-						onChange={handleChange}
-						value={suggestion.P}
-                        style={inputstyle}
-					/>{" "}
-				</label>{" "}
-				<label style={labelstyle}>
-					K:
-					<input
-						type="text"
-						name="K"
-						onChange={handleChange}
-						value={suggestion.K}
-                        style={inputstyle}
-					/>{" "}
-				</label>{" "}
-				<label style={labelstyle}>
-					Temperature:
-					<input
-						type="text"
-						name="temperature"
-						onChange={handleChange}
-						value={suggestion.temperature}
-                        style={inputstyle}
-					/>{" "}
-				</label>{" "}
-				<label style={labelstyle}>
-					Humidity:
-					<input
-						type="text"
-						name="humidity"
-						onChange={handleChange}
-						value={suggestion.humidity}
-                        style={inputstyle}
-                        
-					/>{" "}
-				</label>{" "}
-				<label style={labelstyle}>
-					Rainfall:
-					<input
-						type="text"
-						name="rainfall"
-						onChange={handleChange}
-						value={suggestion.rainfall}
-                        style={inputstyle}
-					/>{" "}
-				</label>{" "}
-				<label style={labelstyle}>
-					PH:
-					<input
-						type="text"
-						name="ph"
-						onChange={handleChange}
-						value={suggestion.ph}
-                        style={inputstyle}
-					/>{" "}
-				</label>{" "}
-				<button
-					type="submit"
-					onClick={handleSubmit}
-					style={buttonstyle}
-				>
-					{" "}
-					Submit{" "}
-				</button>{" "}
-			</form>{" "}
+		suggestionResult == "" || suggestionResult == null || suggestionResult == undefined ? 
+		<div className="container m-5">
+			<div className="row">
+				<div className="col-md-12">
+					<div className="card m-5">
+						<div className="card-header">
+							<h3>
+								<i className="fas fa-leaf"></i>
+								Crop Suggestion
+							</h3>
+						</div>
+						<div className="card-body">
+							<div className="row">
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											pH
+										</label>
+										<input
+											type="number"
+											className="form-control"
+											name="ph"
+											value={suggestion.ph}
+											onChange={handleChange}
+										/>
+									</div>
+								</div>
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											Temperature
+										</label>
+										<input
+											type="number"
+											className="form-control"
+											name="temperature"
+											value={suggestion.temperature}
+											onChange={handleChange}
+										/>
+									</div>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											Humidity
+										</label>
+										<input
+											type="number"
+											className="form-control"
+											name="humidity"
+											value={suggestion.humidity}
+											onChange={handleChange}
+										/>
+									</div>
+								</div>
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											N (Nitrogen)
+										</label>
+										<input
+											type="number"
+											className="form-control"
+											name="N"
+											value={suggestion.N}
+											onChange={handleChange}
+										/>
+									</div>
+								</div>
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											P (Phosphorus)
+										</label>
+										<input
+											type="number"
+											className="form-control"
+											name="P"
+											value={suggestion.P}
+											onChange={handleChange}
+										/>
+									</div>
+								</div>
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											Rainfall
+										</label>
+										<input
+											type="number"
+											className="form-control"
+											name="rainfall"
+											value={suggestion.rainfall}
+											onChange={handleChange}
+										/>
+									</div>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											K (Potassium)
+										</label>
+										<input
+											type="number"
+											className="form-control"
+											name="K"
+											value={suggestion.K}
+											onChange={handleChange}
+										/>
+									</div>
+								</div>
+							</div>
+							<div className="row">
+								
+							</div>
+						</div>
+						<div className="modal-footer">
+							<button
+								type="button"
+								className="btn btn-secondary"
+								data-dismiss="modal"
+								onClick={handleClose}
+							>
+								Clear All
+							</button>
+							<button
+								type="submit"
+								className="btn btn-primary"
+								onClick={handleSubmit}
+							>
+								Suggest
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> 
+		: 
+		// {/* if suggestion result is not empty, we will show the suggestion result along with input values from suggestion state */}
+		<div className="container m-5">
+			<div className="row">
+				<div className="col-md-12">
+					<div className="card m-5">
+						<div className="card-header">
+							<h3>
+								<i className="fas fa-leaf"></i>
+								Crop Suggestion Result
+							</h3>
+						</div>
+						<div className="card-body">
+							<div className="row">
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											pH
+										</label>
+										<h4>{suggestion.ph}</h4>
+									</div>
+								</div>
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											Temperature
+										</label>
+										<h4>{suggestion.temperature}</h4>
+									</div>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											Humidity
+										</label>
+										<h4>{suggestion.humidity}</h4>
+									</div>
+								</div>
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											N (Nitrogen)
+										</label>
+										<h4>{suggestion.N}</h4>
+									</div>
+								</div>
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											P (Phosphorus)
+										</label>
+										<h4>{suggestion.P}</h4>
+									</div>
+								</div>
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											Rainfall
+										</label>
+										<h4>{suggestion.rainfall}</h4>
+									</div>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											K (Potassium)
+										</label>
+										<h4>{suggestion.K}</h4>
+									</div>
+								</div>
+							</div>
+						
+							<br/>
+							<div className="row">
+								<div className="col-md-6">
+									<div className="form-group p-2">
+										<label>
+											<i className="fas fa-leaf"></i>
+											Suggested Crop
+										</label>
+										<h2>{suggestionResult.crop}</h2>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div className="modal-footer">
+							<button
+								type="button"
+								className="btn btn-secondary"
+								data-dismiss="modal"
+								onClick={handlePredictClose}
+							>
+								Close
+							</button>
+							
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
+							
 };
 
-const containerstyle = {
-	display: "flex",
-	flexDirection: "column",
-	alignItems: "center",
-	justifyContent: "center",
-	width: "100%",
-	height: "100%",
-	backgroundColor: "#f5f5f5",
-};
-const formstyle = {
-	display: "flex",
-	flexDirection: "column",
-	alignItems: "center",
-	justifyContent: "center",
-	width: "100%",
-	height: "100%",
-	backgroundColor: "#f5f5f5",
-};
 
-const labelstyle = {
-	display: "flex",
-	flexDirection: "column",
-	alignItems: "center",
-	justifyContent: "center",
-	width: "100%",
-	height: "100%",
-	backgroundColor: "#f5f5f5",
-	padding: "10px",
-};
-
-const buttonstyle = {
-	display: "flex",
-	flexDirection: "column",
-	alignItems: "center",
-	justifyContent: "center",
-	backgroundColor: "#008CBA",
-	color: "white",
-	padding: "10px",
-    fontSize: "20px",
-    border: "none",
-
-};
-
-const inputstyle = {
-    display: "flex",    
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "30%",
-    height: "80%",
-    backgroundColor: "#f5f5f5",
-    padding: "10px",
-    fontSize: "20px",
-    borderRadius: "5px",
-};
 export default SuggestionPage;
+
+

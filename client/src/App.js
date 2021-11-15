@@ -9,7 +9,7 @@ import Leaderboard from './components/Auction/Leaderboard'
 import FarmerForm from './components/FarmerForm/FarmerForm'
 import ProfilePage from './components/ProfilePage/ProfilePage'
 import SuggestionPage from './components/tools/SuggestionPage'
-
+import PredictPage from './components/tools/PredictPage'
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
@@ -35,7 +35,7 @@ function App() {
       <Route path='/createauction'><FarmerForm/></Route>
       <Route path='/profile'><ProfilePage user={user}></ProfilePage></Route>
       <Route path='/suggest'><SuggestionPage user={user}></SuggestionPage></Route>
-      <Route path='/predict'></Route>
+      <Route path='/predict'><PredictPage></PredictPage></Route>
       </Switch>
     </Router>
   );
