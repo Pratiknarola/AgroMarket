@@ -13,4 +13,5 @@ module.exports = function (app) {
   });
 
   app.get("/api/auction/:tempId", controller.getauction);
+  app.get("/api/auction/id/:id", controller.getauctionwithid);
 };
