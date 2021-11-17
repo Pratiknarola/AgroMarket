@@ -62,14 +62,6 @@ As students of computer science we have tried our best to make something for the
 
 
 
-# Contributors
-
-* Team name: Bug hunters
-* [Pratik Narola](https://github.com/Pratiknarola)
-* [Rohit Kumar](https://github.com/Rohit323615)
-* [Harsh Soni](https://github.com/meliodas-0)
-* [Nikhar Shah](https://github.com/ukkin)
-
 ### Installation
 
 Development requiremets: 
