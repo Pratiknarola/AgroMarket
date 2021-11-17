@@ -15,3 +15,19 @@ exports.getauction = (req, res) => {
     res.status(200).send(auction);
   });
 };
+
+
+exports.getauctionwithid = (req, res) => {
+  Auction.findOne({
+    _id: req.params.id,
+  }).then((auction) => {
+    console.log("Getting auction with auction id");
+    if (!auction) {
+      return res.status(404).send({ message: "Auction Not found." });
+    }
+    auction.bids=undefined;
+    auction = JSON.parse(JSON.stringify(auction));
+    console.log(auction);
+    res.status(200).send(auction);
+  });
+};
