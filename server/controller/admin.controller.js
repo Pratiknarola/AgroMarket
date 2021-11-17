@@ -41,9 +41,9 @@ exports.addcrop = (req, res) => {
         return res.status(404).send({ message: "Farmer User Not found." });
       }
       const crop = new Crop({
-        name: req.body.cropname,
+        name: req.body.cropName,
         image: "",
-        rating: req.body.croprating,
+        rating: req.body.rating,
       });
       crop.save((err, cropdoc) => {
         if (err) {

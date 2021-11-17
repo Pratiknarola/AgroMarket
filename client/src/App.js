@@ -32,7 +32,7 @@ function App() {
       <Route path='/bidpage/:id' ><BidPage/></Route>
       <Route path='/admin'><Admin/></Route>
       <Route path='/leaderboard'><Leaderboard/></Route>
-      <Route path='/createauction'><FarmerForm/></Route>
+      <Route path='/createauction'><FarmerForm user={user}></FarmerForm></Route>
       <Route path='/profile'><ProfilePage user={user}></ProfilePage></Route>
       <Route path='/suggest'><SuggestionPage user={user}></SuggestionPage></Route>
       <Route path='/predict'><PredictPage></PredictPage></Route>
