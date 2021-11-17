@@ -143,7 +143,8 @@ export default function PredictPage({ user }) {
     const [crop, setCrop] = useState("");
     const [season, setSeason] = useState("");
     const [area, setArea] = useState("");
-    const [prediction, setPrediction] = useState("");
+    const [prediction, setPrediction] = useState(null);
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -178,6 +179,7 @@ export default function PredictPage({ user }) {
 
 
     return (
+        prediction === "" || prediction === null || prediction === undefined ?
         <div className="container" style={{marginTop: "40px"}} >
             <div className="row">
                 <div className="col-md-6 offset-md-3">
@@ -217,7 +219,7 @@ export default function PredictPage({ user }) {
                             </select>
                         </div>
                         <div className="form-group p-2">
-                            <label>Area</label>
+                            <label>Area (in hector)</label>
                             <input type="text" className="form-control" onChange={(e) => setArea(e.target.value)} />
                         </div>
                         <button type="submit" className="btn btn-primary btn-block">Predict</button>
@@ -225,6 +227,44 @@ export default function PredictPage({ user }) {
                     {/* <h3 className="text-center">{prediction}</h3> */}
                 </div>
             </div>
+        </div>
+        :
+        <div className="container" style={{marginTop: "40px"}} >
+            <div className="col-md-6 offset-md-3">
+                    <h1 className="text-center">Yield Prediction</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group p-2">
+                            <label>District</label>
+                            <h4>{district}</h4>
+                        </div>
+                        <div className="form-group p-2">
+                            <label>Crop</label>
+                            <h4>{crop}</h4>
+                        </div>
+                        <div className="form-group p-2">
+                            <label>Season</label>
+                            <h4>{season}</h4>
+                        </div>
+                        <div className="form-group p-2">
+                            <label>Area</label>
+                            <h4>{area + " hectors"}</h4>
+                        </div>
+                        
+                    </form>
+                    {/* <h3 className="text-center">{prediction}</h3> */}
+                </div>
+            <div className="row">
+                <div className="col-md-6 offset-md-3">
+                    <h2 className="text-center">Predicted Yield</h2>
+                    <h3 className="text-center">{prediction.production + " tons"}</h3>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-md-6 offset-md-3">
+                    <button type="submit" className="btn btn-primary btn-block">Close</button>
+                </div>
+            </div>
+
         </div>
     )
 }

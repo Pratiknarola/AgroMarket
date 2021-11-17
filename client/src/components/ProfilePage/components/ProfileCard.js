@@ -6,6 +6,17 @@ import {
   GrStatusGood,
   GrStatusCritical,
 } from "react-icons/all";
+
+
+// role 
+// username
+// email id
+// first name 
+// last name
+// array of auctions participated
+
+
+
 const ProfileCard = ({ user }) => {
   return (
     <div className="card_container ">

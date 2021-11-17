@@ -6,6 +6,16 @@ import PurchasedAuctionCard from "./components/PurchasedAuctionsCard";
 
 //get the data in here and then pass this to Card component
 
+// role 
+// username
+// email id
+// first name 
+// last name
+// array of auctions participated
+// rating
+
+
+
 const ProfilePage = ({ user }) => {
   //   const user = {
   //     username: 'nelsonMandela',
