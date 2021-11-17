@@ -1,90 +1,120 @@
-import { React, useState } from "react";
+import { Component, React, useState } from "react";
 import { RaisedButton, TextField } from "material-ui";
 import { MuiThemeProvider } from "material-ui/styles";
 import axios from "axios";
 // import BasicDateTimePicker from './DateTimePicker';
 import { styles } from "@material-ui/lab/internal/pickers/PickersArrowSwitcher";
 
-const FarmerForm = () => {
-  const [alertmsg, setAlertMsg] = useState("");
-  const [open, setOpen] = useState(false);
-  var state = {
-    startdateday: 0,
-    startdatemonth: 0,
-    startdateyear: 0,
-    startdatehour: 0,
-    startdateminute: 0,
-    startdatesecond: 0,
-    startdate: 0,
-    durationhour: 0,
-    durationminute: 0,
-    durationsecond: 0,
-    duration: 0,
-    harvestdateday: 0,
-    harvestdatemonth: 0,
-    harvestdateyear: 0,
-    harvestdate: 0,
-    quantity: 0,
-    description: 0,
-    startprice: 0,
-  };
-  var handleChange;
+class FarmerForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      alertmsg: "",
+      open:false,
+      cropslist:[]
+    };
+
+    this.states = {
+      startdateday: 0,
+      startdatemonth: 0,
+      startdateyear: 0,
+      startdatehour: 0,
+      startdateminute: 0,
+      startdatesecond: 0,
+      startdate: 0,
+      durationhour: 0,
+      durationminute: 0,
+      durationsecond: 0,
+      duration: 0,
+      harvestdateday: 0,
+      harvestdatemonth: 0,
+      harvestdateyear: 0,
+      harvestdate: 0,
+      quantity: 0,
+      description: 0,
+      startprice: 0,
+    };
+
+    this.user = this.props.user;
+
+    this.accessToken = JSON.parse(localStorage.getItem("profile")).accessToken;
+
+  }
+
+  componentDidMount() {
+    console.log(this.user);
+    axios.get(
+      `http://localhost:8080/api/farmer/getcrop/${this.user.username}`,
+      {
+        headers: {
+          "x-access-token": this.accessToken,
+        },
+      }
+    ).then((response) => {
+      let cropslist = response.data.crops.map(function(crop){
+        let x = {};
+        x["name"]=crop.name;
+        x["rating"]=crop.rating;
+        return x;
+      });
+      this.setState({cropslist:cropslist});
+      console.log(cropslist);
+      console.log(this.state.cropslist);
+  });}
+  
   // var handleDateValues;
   handleChange = (input) => (event) => {
-    state[input] = event.target.value;
+    this.states[input] = event.target.value;
     console.log(input + event.target.value);
   };
 
-  const handleSubmit = async (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const suc = await axios.post("", {
         //TODO: Add address here like : "localhost:3000/api/farmer/createauction"
-        startdate: state.startdate,
-        duration: state.duration,
-        harvestdate: state.harvestdate,
-        quantity: state.quantity,
-        description: state.description,
-        startprice: state.startprice,
+        startdate: this.states.startdate,
+        duration: this.states.duration,
+        harvestdate: this.states.harvestdate,
+        quantity: this.states.quantity,
+        description: this.states.description,
+        startprice: this.states.startprice,
       });
       console.log(suc);
-      setAlertMsg("Auction Successfully Registered");
+      this.setAlertMsg("Auction Successfully Registered");
     } catch (error) {
-      setAlertMsg(error.response?.data.message);
+      this.setAlertMsg(error.response?.data.message);
     }
-    setOpen(true);
+    this.setOpen(true);
   };
 
-  // handleDateValues = (name, date) =>{
-  //     state[name] = date;
-  //     console.log(name + date + state[name]);
-  // }
 
-  var submit = (e) => {
-    console.debug(state);
+  submit = (e) => {
+    console.debug(this.states);
 
-    state["startdate"] = new Date(
-      state["startdateyear"],
-      state["startdatemonth"],
-      state["startdateday"],
-      state["startdatehour"],
-      state["startdateminute"],
-      state["startdatesecond"]
+    this.states["startdate"] = new Date(
+      this.states["startdateyear"],
+      this.states["startdatemonth"],
+      this.states["startdateday"],
+      this.states["startdatehour"],
+      this.states["startdateminute"],
+      this.states["startdatesecond"]
     );
-    state["duration"] =
-      parseInt(state["durationhour"] * 60) + parseInt(state["durationminute"]);
-    state["harvestdate"] = new Date(
-      state["harvestdatemonth"] +
+    this.states["duration"] =
+      parseInt(this.states["durationhour"] * 60) + parseInt(this.states["durationminute"]);
+    this.states["harvestdate"] = new Date(
+      this.states["harvestdatemonth"] +
         " " +
-        state["harvestdateday"] +
+        this.states["harvestdateday"] +
         " " +
-        state["harvestdateyear"]
+        this.states["harvestdateyear"]
     );
 
-    console.log(state);
-    handleSubmit(e);
+    console.log(this.states);
+    this.handleSubmit(e);
   };
-  return (
+  render() { 
+    return(
     <MuiThemeProvider>
       <center>
         <>
@@ -96,34 +126,34 @@ const FarmerForm = () => {
           <TextField
             style={{ width: 30, margin: 5 }}
             floatingLabelText="Day"
-            onChange={handleChange("startdateday")}
+            onChange={this.handleChange("startdateday")}
           />
           <TextField
             style={{ width: 50, margin: 5 }}
             floatingLabelText="Month"
-            onChange={handleChange("startdatemonth")}
+            onChange={this.handleChange("startdatemonth")}
           />
           <TextField
             style={{ width: 40, margin: 5 }}
             floatingLabelText="year"
-            onChange={handleChange("startdateyear")}
+            onChange={this.handleChange("startdateyear")}
           />
           <br />
           <TextField
             style={{ width: 40, margin: 5 }}
             floatingLabelText="Hour"
-            onChange={handleChange("startdatehour")}
+            onChange={this.handleChange("startdatehour")}
             type={Number}
           />
           <TextField
             style={{ width: 50, margin: 5 }}
             floatingLabelText="Minute"
-            onChange={handleChange("startdateminute")}
+            onChange={this.handleChange("startdateminute")}
           />
           <TextField
             style={{ width: 50, margin: 5 }}
             floatingLabelText="Second"
-            onChange={handleChange("startdatesecond")}
+            onChange={this.handleChange("startdatesecond")}
           />
           <br />
           <div style={{ marginTop: 20, marginBottom: -10 }}>Duration</div>
@@ -131,12 +161,12 @@ const FarmerForm = () => {
           <TextField
             style={{ width: 40, margin: 5 }}
             floatingLabelText="Hour"
-            onChange={handleChange("durationhour")}
+            onChange={this.handleChange("durationhour")}
           />
           <TextField
             style={{ width: 50, margin: 5 }}
             floatingLabelText="Minute"
-            onChange={handleChange("durationminute")}
+            onChange={this.handleChange("durationminute")}
           />
           <br />
           {/* {BasicDateTimePicker('Duration', state['duration'], handleDateValues, 'duration')} */}
@@ -145,17 +175,17 @@ const FarmerForm = () => {
           <TextField
             style={{ width: 30, margin: 5 }}
             floatingLabelText="Day"
-            onChange={handleChange("harvestdateday")}
+            onChange={this.handleChange("harvestdateday")}
           />
           <TextField
             style={{ width: 50, margin: 5 }}
             floatingLabelText="Month"
-            onChange={handleChange("harvestdatemonth")}
+            onChange={this.handleChange("harvestdatemonth")}
           />
           <TextField
             style={{ width: 40, margin: 5 }}
             floatingLabelText="year"
-            onChange={handleChange("harvestdateyear")}
+            onChange={this.handleChange("harvestdateyear")}
           />
           <br />
 
@@ -164,19 +194,19 @@ const FarmerForm = () => {
           <TextField
             hintText="Enter Quantity"
             floatingLabelText="Quantity"
-            onChange={handleChange("quantity")}
+            onChange={this.handleChange("quantity")}
           />
           <br />
           <TextField
             hintText="Enter Description"
             floatingLabelText="Description"
-            onChange={handleChange("description")}
+            onChange={this.handleChange("description")}
           />
           <br />
           <TextField
             hintText="Enter Start bid Price"
             floatingLabelText="Starting Bid Price"
-            onChange={handleChange("startprice")}
+            onChange={this.handleChange("startprice")}
           />
           <br />
           <br />
@@ -184,12 +214,13 @@ const FarmerForm = () => {
             label="Submit"
             primary={true}
             style={styles.button}
-            onClick={submit}
+            onClick={this.submit}
           />
         </>
       </center>
     </MuiThemeProvider>
   );
+  }
 };
 
 export default FarmerForm;
