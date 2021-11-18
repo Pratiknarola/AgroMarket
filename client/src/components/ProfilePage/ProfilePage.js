@@ -120,7 +120,7 @@ const ProfilePage = () => {
                   </div> 
                   :
                   user.auctionsParticipated.map((auction, index) => {
-                    return <AuctionCard user={user} auction={auction} index={index}/>
+                    return <AuctionCard user={user} auction={auction} index={index} key={index}/>
                   })
                 }
               </div>

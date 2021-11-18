@@ -48,12 +48,7 @@ exports.getpastauctions = async (req, res) => {
 	let mypast = [];
 	for await (const doc of past) {
 		if (timenow > doc.startdate + doc.duration * 60) {
-			await doc.populate("crops").exec((err, doc) => {
-        if (err) {
-          res.status(500).send({ message: err });
-        }
-        mypast.push(doc);
-      });
+			mypast.push(doc);
 		}
 	}
 	res.status(200).send(mypast);
@@ -65,13 +60,7 @@ exports.getpresentauctions = async (req, res) => {
 	let mypresent = [];
 	for await (const doc of present) {
 		if (timenow < doc.startdate + doc.duration * 60) {
-			doc.populate("crop").exec((err, doc) => {
-				if (err) {
-					res.status(500).send({ message: err });
-				}
-        console.log("doc.crop.name", doc);
-				mypresent.push(doc);
-			});
+			mypresent.push(doc);
 		}
 	}
 	res.status(200).send(mypresent);
