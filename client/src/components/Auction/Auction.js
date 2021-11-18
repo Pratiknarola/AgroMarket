@@ -10,12 +10,15 @@ import {
 } from "@material-ui/core";
 import { Card } from "@material-ui/core";
 import { CardContent, Button, CardActions } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
 import Alert from "@material-ui/lab/Alert";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import axios from "axios";
 // import Tile from "./Tile";
+//enqueSnackbar("hello", "success");
+import { useSnackbar } from 'notistack';
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
 
 const Auction = () => {
@@ -30,6 +33,7 @@ const Auction = () => {
   const [pastauction, setPastAuction] = useState([]);
   const [presentauction, setPresentAuction] = useState([]);
   const [futureauction, setFutureAuction] = useState([]);
+
 
   useEffect(async () => {
     console.log(accessToken);
@@ -109,7 +113,7 @@ const Auction = () => {
           <Collapse in={drop1} timeout="auto" unmountOnExit>
             <Grid container spacing={3}>
               {presentauction.map((auc) => (
-                <Grid item xs={12} sm={6} md={4} lg={3}>
+                <Grid item xs={12}>
                   <Tile auc={auc} type={"present"} key={auc.tempId} />
                 </Grid>
               ))}
@@ -131,7 +135,7 @@ const Auction = () => {
           <Collapse in={drop2} timeout="auto" unmountOnExit>
             <Grid container spacing={3}>
               {futureauction.map((auc) => (
-                <Grid item xs={12} sm={6} md={4} lg={3}>
+                <Grid item xs={12}>
                   <Tile auc={auc} type={"future"} key={auc.tempId}/>
                 </Grid>
               ))}
@@ -153,7 +157,7 @@ const Auction = () => {
           <Collapse in={drop3} timeout="auto" unmountOnExit>
             <Grid container spacing={3}>
               {pastauction.map((auc) => (
-                <Grid item xs={12} sm={6} md={4} lg={3}>
+                <Grid item xs={12}>
                   <Tile auc={auc} type={"past"} key={auc.tempId} />
                 </Grid>
               ))}
@@ -187,11 +191,24 @@ const Tile = (props) => {
   const [open, setOpen] = useState(false);
   const [alertmsg, setAlertmsg] = useState("");
   const [type , setType] = useState(props.type);
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const history = useHistory();
   
   const handleClick = () => {
     setOpen(true);
-    setAlertmsg("You are now in the leaderboard");
+    if(type === "present"){
+      history.push(`/bidpage/${props.auc.tempId}`);
+    }
   };
+
+  const handleTile = () => {
+    if(type === "future"){
+      enqueueSnackbar("You can't bid for future auction yet!", {variant: "error"});
+    } 
+    else if(type === "past"){
+      enqueueSnackbar("You can't bid for completed auction!", {variant: "error"});
+    }
+  }
 
   // the tile should have following information:
   // 1. crop name
@@ -223,7 +240,6 @@ const Tile = (props) => {
     let now = new Date().getTime() / 1000;
     let end = new Date(startdate + duration * 60).getTime();
     let timeLeft = end - now;
-    console.log("total timeleft is,", timeLeft)
     let days = Math.floor(timeLeft / (60 * 60 * 24));
     let hours = Math.floor(
       (timeLeft % (60 * 60 * 24)) / ( 60 * 60)
@@ -296,7 +312,7 @@ const Tile = (props) => {
       if (type === "future") {
         setType("present");
         setTimeLeft(calculateTimeLeft(props.auc.startdate, props.auc.duration));
-      } else if (type === "past") {
+      } else if (type === "present") {
         setType("past");
       }
     }
@@ -307,7 +323,7 @@ const Tile = (props) => {
 
 
   return (
-    <Card style={{ marginTop: "10px" }}>
+    <Card style={{ marginTop: "10px", width: "70vw" }} onClick={handleTile} >
       <CardContent>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={4} lg={3}>

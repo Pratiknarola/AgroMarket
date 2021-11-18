@@ -4,6 +4,7 @@ import { Router } from "react-router";
 import Login from "../Login/Login";
 import PurchasedAuctionCard from "./components/PurchasedAuctionsCard";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import axios from "axios";
 //get the data in here and then pass this to Card component
 
 // role 
@@ -19,6 +20,7 @@ import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
 const ProfilePage = () => {
   
   const [user, setUser] = useState(localStorage.getItem("profile") ? JSON.parse(localStorage.getItem("profile")) : {});
+  const [auctionslist, setAuctionslist] = useState([]);
 
   useEffect(() => {
     if (!user) {
@@ -29,6 +31,20 @@ const ProfilePage = () => {
       );  
     }
   }, [user]);
+  
+  useEffect(() => {
+
+    if(auctionslist.length === 0 || auctionslist === undefined) {
+      user.auctionsParticipated.map((auction, index) => {
+        axios.get(`http://localhost:8080/api/auction/id/${auction}`).then(res => {
+          setAuctionslist((auctionslist) => auctionslist.concat(res.data));
+        });
+        console.log(auctionslist);
+      })
+    }
+    return () => { setAuctionslist([]) }
+
+  }, [])
 
   
   //   const user = {
@@ -107,7 +123,7 @@ const ProfilePage = () => {
             <ProfileCard user={user} />
           </div>
           <div className="col-md-8">
-            <div className="row">
+            <div className="row" style={{marginTop: "20px"}} >
               <div className="col-md-12">
                 <h3>Auctions Participated</h3>
               </div>
@@ -119,8 +135,8 @@ const ProfilePage = () => {
                     You have not participated in any auction yet.
                   </div> 
                   :
-                  user.auctionsParticipated.map((auction, index) => {
-                    return <AuctionCard user={user} auction={auction} index={index} key={index}/>
+                  auctionslist.map((auction, index) => {
+                    return <AuctionCard key={index} auction={auction} index={index} />
                   })
                 }
               </div>
@@ -169,17 +185,19 @@ const ProfileCard = ({ user }) => {
 
 const epochToDate = epoch => {
   const date = new Date(epoch);
-  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+  console.log("epoch to date", date)
+  return date.toDateString()
 };
 
 const AuctionCard = ({user, auction, index}) => {
+  console.log(`auction card ${index}`, auction); 
   return (
-    <div className="card">
+    <div className="card" style={{marginTop: "10px"}}>
       <div className="card-body">
         <div className="row">
           <div className="col-md-4">
             <img
-              src="https://www.w3schools.com/howto/img_avatar.png"
+              src="https://shop.jivabhumi.com/image/cache/catalog/Sonamasuri%20White%20Rice-500x350.jpeg"
               alt="Avatar"
               style={{ width: "100%" }}
             />
@@ -187,13 +205,12 @@ const AuctionCard = ({user, auction, index}) => {
           <div className="col-md-8">
             <h3>Auction {index+1}</h3>
             <p>Auction Description: {auction.description} </p>
-            <p>Start Date: {epochToDate(auction.startdate)} </p>
-            <p>End Date : {epochToDate(auction.startdate + Number(auction.duration) * 60)} </p>
+            <p>Start Date: {epochToDate(Number(auction.startdate))} </p>
+            <p>End Date : {epochToDate(Number(auction.startdate) + Number(auction.duration) * 60)} </p>
             <p>Harvest Date : {auction.harvestdate?.split("T")[0]} </p>
-            <p>Crop :  </p>
-            <p>Quantity : </p>
-            <p>Start Price : </p>
-            <p>Bids : </p>
+            <p>Crop : {auction.crop.name} </p>
+            <p>Quantity : {auction.quantity} </p>
+            <p>Start Price : {auction.startprice}</p>
           </div>
         </div>
       </div>

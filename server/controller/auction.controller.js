@@ -4,6 +4,7 @@ require("dotenv").config();
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const { auction } = require("../model");
 
 exports.getauction = (req, res) => {
   Auction.findOne({
@@ -20,8 +21,11 @@ exports.getauction = (req, res) => {
 exports.getauctionwithid = (req, res) => {
   Auction.findOne({
     _id: req.params.id,
-  }).then((auction) => {
-    console.log("Getting auction with auction id");
+  }).populate("crop").exec((err, auction) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
     if (!auction) {
       return res.status(404).send({ message: "Auction Not found." });
     }
@@ -29,5 +33,6 @@ exports.getauctionwithid = (req, res) => {
     auction = JSON.parse(JSON.stringify(auction));
     console.log(auction);
     res.status(200).send(auction);
-  });
+  })
+    
 };

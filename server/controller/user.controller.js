@@ -8,6 +8,7 @@ const Crop = db.crop;
 const Auction = db.auction;
 require("dotenv").config();
 
+
 // timenow > startdate + duration*60
 //startdate < timenow - duration*60
 //db.inventory.find( { $or: [ { quantity: { $lt: 20 } }, { price: 10 } ] } )

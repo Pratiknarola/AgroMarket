@@ -1,5 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import Center from "react-center";
+import Spinner from "react-spinkit";
 
 import axios from "axios";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
@@ -37,6 +39,8 @@ const SuggestionPage = ({ user }) => {
 		ph: "",
 	});
 
+	const [loading, setLoading] = useState(false);
+
 	const handleClose = () => {
 		setSuggestion({
 			N: "",
@@ -69,6 +73,8 @@ const SuggestionPage = ({ user }) => {
 	const [suggestionResult, setSuggestionResult] = useState(null);
 
 	const handleSubmit = (e) => {
+		e.preventDefault();
+		
 		console.log("handle submit called");
 		// check if any of the inputs are empty
 		if (
@@ -83,7 +89,7 @@ const SuggestionPage = ({ user }) => {
 			alert("Please fill all the fields");
 			return;
 		}
-		e.preventDefault();
+		setLoading(true);
 		axios
 			.post(
 				"https://mlagrohelp-xipqzrlqna-el.a.run.app/crop",
@@ -97,9 +103,11 @@ const SuggestionPage = ({ user }) => {
 			.then((res) => {
 				console.log("request successful", res.data);
 				setSuggestionResult(res.data);
+				setLoading(false);
 				localStorage.setItem("suggestionResult", res.data);
 			})
 			.catch((err) => {
+				setLoading(false);
 				console.log(err);
 			});
 	};
@@ -227,6 +235,13 @@ const SuggestionPage = ({ user }) => {
 	};
 
 	return (
+		loading ? (
+			// put this div in center
+			<Center>
+				<Spinner animation="border" variant="primary" />
+			</Center>
+			
+		) : (
 		suggestionResult == "" || suggestionResult == null || suggestionResult == undefined ? 
 		<div className="container m-5">
 			<div className="row">
@@ -487,9 +502,14 @@ const SuggestionPage = ({ user }) => {
 				</div>
 			</div>
 		</div>
+		)
 	);
 							
 };
+
+// a circular loading indicator
+
+
 
 
 export default SuggestionPage;
