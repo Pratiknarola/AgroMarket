@@ -145,6 +145,14 @@ export default function PredictPage({ user }) {
     const [area, setArea] = useState("");
     const [prediction, setPrediction] = useState(null);
 
+    const handleClose = () => {
+        setDistrict("");
+        setCrop("");
+        setSeason("");
+        setArea("");
+        setPrediction(null);
+    };
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -261,7 +269,7 @@ export default function PredictPage({ user }) {
             </div>
             <div className="row">
                 <div className="col-md-6 offset-md-3">
-                    <button type="submit" className="btn btn-primary btn-block">Close</button>
+                    <button type="submit" className="btn btn-primary btn-block" onClick={handleClose}>Close</button>
                 </div>
             </div>
 

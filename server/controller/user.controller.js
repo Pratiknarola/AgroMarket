@@ -51,10 +51,14 @@ exports.getpastauctions = async (req, res) => {
 
 exports.getpresentauctions = async (req, res) => {
   const timenow = Math.floor(Date.now() / 1000);
-
+  console.log("inside getpresentauctions ", timenow);
   const present = Auction.find({ startdate: { $lt: timenow } });
   let mypresent = [];
   for await (const doc of present) {
+    console.log("---------------------------------------------------", doc.description);
+    console.log("inside for await startdate", doc.startdate);
+    console.log("inside for await timenow", timenow);
+    console.log("inside for await deadline", doc.startdate + doc.duration * 60);
     if (timenow < doc.startdate + doc.duration * 60) {
       mypresent.push(doc);
     }

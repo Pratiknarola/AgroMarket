@@ -6,7 +6,12 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+var corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200 // For legacy browser support
+}
+app.use(cors(corsOptions));
+app.options('*', cors());
 
 app.use(express.json());
 require('./route/auth.route')(app);

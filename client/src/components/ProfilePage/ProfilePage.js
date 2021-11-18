@@ -1,9 +1,9 @@
 // import "./App.css";
-import Header from "./components/Header";
-import ProfileCard from "./components/ProfileCard";
-import AuctionCard from "./components/AuctionCard";
+import { useState, useEffect } from "react";
+import { Router } from "react-router";
+import Login from "../Login/Login";
 import PurchasedAuctionCard from "./components/PurchasedAuctionsCard";
-
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
 //get the data in here and then pass this to Card component
 
 // role 
@@ -16,7 +16,21 @@ import PurchasedAuctionCard from "./components/PurchasedAuctionsCard";
 
 
 
-const ProfilePage = ({ user }) => {
+const ProfilePage = () => {
+  
+  const [user, setUser] = useState(localStorage.getItem("profile") ? JSON.parse(localStorage.getItem("profile")) : {});
+
+  useEffect(() => {
+    if (!user) {
+      return (
+        <Router>
+          <Login setUser={setUser} />
+        </Router>
+      );  
+    }
+  }, [user]);
+
+  
   //   const user = {
   //     username: 'nelsonMandela',
   //     email: "nelsonMandela@gmail.com",
@@ -81,17 +95,107 @@ const ProfilePage = ({ user }) => {
   //     }],
   // }
 
+  // create a profile page with the following components using bootstrap
+  // 1. Profile card
+  // 2. Auction card
   return (
-    <div>
+    <div className="App">
       <Header />
-      <div className="container" style={{ justifyContent: "space-evenly" }}>
-        {/* TODO add user here as param like <ProfileCard user /> */}
-        <ProfileCard user={user} />
-        <AuctionCard user={user} />
-        {/* TODO : Uncomment this when user specific task is given<PurchasedAuctionCard user = {user}/> */}
+      <div className="container">
+        <div className="row">
+          <div className="col-md-8">
+            <ProfileCard user={user} />
+          </div>
+          <div className="col-md-8">
+            <div className="row">
+              <div className="col-md-12">
+                <h3>Auctions Participated</h3>
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12">
+                 {user.auctionsParticipated.length === 0 ? 
+                  <div className="alert alert-info" role="alert">
+                    You have not participated in any auction yet.
+                  </div> 
+                  :
+                  user.auctionsParticipated.map((auction, index) => {
+                    return <AuctionCard user={user} auction={auction} index={index}/>
+                  })
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  );
+};
+
+const Header = () => {
+  return (
+    <div className="row">
+      <div className="col-md-12">
+        <h1>Profile Page</h1>
       </div>
     </div>
   );
 };
+
+const ProfileCard = ({ user }) => {
+  return (
+    <div className="card" style={{marginTop : "40px"}}>
+      <div className="card-body">
+        <div className="row">
+          <div className="col-md-4">
+            <img
+              src="https://www.w3schools.com/howto/img_avatar.png"
+              alt="Avatar"
+              style={{ width: "100%" }}
+            />
+          </div>
+          <div className="col-md-8">
+            <h3>{user.firstName} {user.lastName}</h3>
+            <p>{user.email}</p>
+            <p>{user.status}</p>
+            <p>{user.roles}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const AuctionCard = ({user, auction, index}) => {
+  return (
+    <div className="card">
+      <div className="card-body">
+        <div className="row">
+          <div className="col-md-4">
+            <img
+              src="https://www.w3schools.com/howto/img_avatar.png"
+              alt="Avatar"
+              style={{ width: "100%" }}
+            />
+          </div>
+          <div className="col-md-8">
+            <h3>Auction Title</h3>
+            <p>Auction Description</p>
+            <p>Start Date : </p>
+            <p>End Date : </p>
+            <p>Harvest Date : </p>
+            <p>Crop : </p>
+            <p>Quantity : </p>
+            <p>Start Price : </p>
+            <p>Bids : </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
 
 export default ProfilePage;

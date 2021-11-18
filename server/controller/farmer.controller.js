@@ -10,29 +10,50 @@ require("dotenv").config();
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+// create a function to convert given string date to time stamp
+// example of input: 
+// 2021-11-17T17:30:00
+// yyyy-mm-ddThh:mm:ss
+const toUnixTime = (date) => {
+  const dateArr = date.split("T");
+  const dateArr2 = dateArr[0].split("-");
+  const timeArr = dateArr[1].split(":");
+  const year = parseInt(dateArr2[0]);
+  const month = parseInt(dateArr2[1]);
+  const day = parseInt(dateArr2[2]);
+  const hour = parseInt(timeArr[0]);
+  const minute = parseInt(timeArr[1]);
+  const second = parseInt(timeArr[2]);
+  return new Date(year, month - 1, day, hour, minute, second).getTime()/1000;
+};
+
+
 exports.createauction = (req, res) => {
   console.log("data received for auction is : \n ");
   console.log(req.body);
   const auctionid = Math.random().toString(36).substring(2, 15);
-
+  console.log(toUnixTime(req.body.startdate));
   const auction = new Auction({
-    startdate: req.body.startdate,
-    duration: req.body.duration,
-    harvestdate: req.body.harvestdate,
-    crop: req.body.crop,
-    quantity: req.body.quantity,
-    owner: req.userid,
-    description: req.body.description,
-    startprice: req.body.startprice,
+    
+    startdate: toUnixTime(req.body.startdate),  // send unix timestamp
+    duration: req.body.duration,      // sen durations in minutes
+    harvestdate: req.body.harvestdate,   // send as recieved from frontend
+    crop: req.body.crop.id,    //  send crop id 
+    quantity: Number(req.body.quantity),     // send as integer
+    owner: req.userid,        
+    description: req.body.description,  
+    startprice: Number(req.body.startprice),      // send as number
     bids: [
       {
         bidby: req.userid,
-        bidprice: req.body.startprice,
-        time: req.body.startdate,
+        bidprice: Number(req.body.startprice),       // send as number
+        time: toUnixTime(req.body.startdate),    //  send unix timestamp
       },
     ],
     tempId: auctionid,
   });
+
+  console.log("auction created", auction);
 
   auction.save((err, auctiondoc) => {
     if (err) {
@@ -72,7 +93,7 @@ exports.createauction = (req, res) => {
 
 exports.getcroplist = (req, res) => {
   console.log("data received for getcroplist is : \n ");
-  console.log(req.params);
+  console.log("this is request.params", req.params);
 
   User.findOne({
     username: req.params.username,

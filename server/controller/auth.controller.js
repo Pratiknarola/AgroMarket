@@ -151,6 +151,10 @@ exports.signin = (req, res) => {
         email: user.email,
         roles: authorities,
         accessToken: token,
+        firstName: user.firstname,
+        lastName: user.lastname,
+        status: user.status,
+        auctionsParticipated: user.auctionsParticipated,
       });
       console.log("response set");
     });
