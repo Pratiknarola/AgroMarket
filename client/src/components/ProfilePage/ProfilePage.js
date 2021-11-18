@@ -167,6 +167,11 @@ const ProfileCard = ({ user }) => {
   );
 };
 
+const epochToDate = epoch => {
+  const date = new Date(epoch);
+  return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+};
+
 const AuctionCard = ({user, auction, index}) => {
   return (
     <div className="card">
@@ -180,12 +185,12 @@ const AuctionCard = ({user, auction, index}) => {
             />
           </div>
           <div className="col-md-8">
-            <h3>Auction Title</h3>
-            <p>Auction Description</p>
-            <p>Start Date : </p>
-            <p>End Date : </p>
-            <p>Harvest Date : </p>
-            <p>Crop : </p>
+            <h3>Auction {index+1}</h3>
+            <p>Auction Description: {auction.description} </p>
+            <p>Start Date: {epochToDate(auction.startdate)} </p>
+            <p>End Date : {epochToDate(auction.startdate + Number(auction.duration) * 60)} </p>
+            <p>Harvest Date : {auction.harvestdate?.split("T")[0]} </p>
+            <p>Crop :  </p>
             <p>Quantity : </p>
             <p>Start Price : </p>
             <p>Bids : </p>
