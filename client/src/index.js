@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { SnackbarProvider } from 'notistack';
+import DateAdapter from '@mui/lab/AdapterDateFns';
 
 ReactDOM.render(
   <React.StrictMode>

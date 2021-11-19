@@ -23,8 +23,7 @@ const toUnixTime = (date) => {
   const day = parseInt(dateArr2[2]);
   const hour = parseInt(timeArr[0]);
   const minute = parseInt(timeArr[1]);
-  const second = parseInt(timeArr[2]);
-  return new Date(year, month - 1, day, hour, minute, second).getTime()/1000;
+  return new Date(year, month - 1, day, hour, minute).getTime()/1000;
 };
 
 
@@ -92,8 +91,6 @@ exports.createauction = (req, res) => {
 };
 
 exports.getcroplist = (req, res) => {
-  console.log("data received for getcroplist is : \n ");
-  console.log("this is request.params", req.params);
 
   User.findOne({
     username: req.params.username,
