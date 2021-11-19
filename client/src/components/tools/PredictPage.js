@@ -188,14 +188,14 @@ export default function PredictPage({ user }) {
 
     return (
         prediction === "" || prediction === null || prediction === undefined ?
-        <div className="container" style={{marginTop: "40px"}} >
+        <div className="container" style={{marginTop: "15vh", border: "1.5px solid black" }} >
             <div className="row">
                 <div className="col-md-6 offset-md-3">
-                    <h1 className="text-center">Yield Prediction</h1>
+                    <h1 className="text-center" style={{ color: "darkgreen"}}> <strong>Yield Prediction</strong></h1>
                     <form onSubmit={handleSubmit}>
                         <div className="form-group p-2">
-                            <label>District</label>
-                            <select className="form-control" onChange={(e) => setDistrict(e.target.value)}>
+                            <label style={{color: "darkblue"}}>District</label>
+                            <select className="form-control" onChange={(e) => setDistrict(e.target.value)} style={{border: "1.5px solid black"}}>
                                 <option value="">Select District</option>
                                 {Object.keys(District_Name).map((item, index) => {
                                     return (
@@ -205,8 +205,8 @@ export default function PredictPage({ user }) {
                             </select>
                         </div>
                         <div className="form-group p-2">
-                            <label>Crop</label>
-                            <select className="form-control" onChange={(e) => setCrop(e.target.value)}>
+                            <label style={{color: "darkblue"}}>Crop</label>
+                            <select className="form-control" onChange={(e) => setCrop(e.target.value)} style={{border: "1.5px solid black"}}>
                                 <option value="">Select Crop</option>
                                 {Object.keys(Crops).map((item, index) => {
                                     return (
@@ -216,8 +216,8 @@ export default function PredictPage({ user }) {
                             </select>
                         </div>
                         <div className="form-group p-2">
-                            <label>Season</label>
-                            <select className="form-control" onChange={(e) => setSeason(e.target.value)}>
+                            <label style={{color: "darkblue"}}>Season</label>
+                            <select className="form-control" onChange={(e) => setSeason(e.target.value)} style={{border: "1.5px solid black"}}>
                                 <option value="">Select Season</option>
                                 {Object.keys(Seasons).map((item, index) => {
                                     return (
@@ -227,10 +227,10 @@ export default function PredictPage({ user }) {
                             </select>
                         </div>
                         <div className="form-group p-2">
-                            <label>Area (in hector)</label>
-                            <input type="text" className="form-control" onChange={(e) => setArea(e.target.value)} />
+                            <label style={{color: "darkblue"}}>Area (in hector)</label>
+                            <input type="text" className="form-control" onChange={(e) => setArea(e.target.value)} style={{border: "1.5px solid black"}} />
                         </div>
-                        <button type="submit" className="btn btn-primary btn-block">Predict</button>
+                        <button type="submit" className="btn btn-primary btn-block" style={{ marginTop: "20px", marginBottom: "30px", marginLeft: "7px"}}>Predict</button>
                     </form>
                     {/* <h3 className="text-center">{prediction}</h3> */}
                 </div>
@@ -269,7 +269,8 @@ export default function PredictPage({ user }) {
             </div>
             <div className="row">
                 <div className="col-md-6 offset-md-3">
-                    <button type="submit" className="btn btn-primary btn-block" onClick={handleClose}>Close</button>
+                    <button type="submit" className="btn btn-primary btn-block" onClick={handleClose}
+                    >Close</button>
                 </div>
             </div>
 

@@ -208,7 +208,7 @@ const AuctionCard = ({user, auction, index}) => {
             <p>Start Date: {epochToDate(Number(auction.startdate))} </p>
             <p>End Date : {epochToDate(Number(auction.startdate) + Number(auction.duration) * 60)} </p>
             <p>Harvest Date : {auction.harvestdate?.split("T")[0]} </p>
-            <p>Crop : {auction.crop.name} </p>
+            <p>Crop : {auction.crop?.name} </p>
             <p>Quantity : {auction.quantity} </p>
             <p>Start Price : {auction.startprice}</p>
           </div>

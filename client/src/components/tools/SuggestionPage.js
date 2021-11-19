@@ -243,21 +243,21 @@ const SuggestionPage = ({ user }) => {
 			
 		) : (
 		suggestionResult == "" || suggestionResult == null || suggestionResult == undefined ? 
-		<div className="container m-5">
+		<div className="container m-5" style={{ border: "1.5px solid black", }}>
 			<div className="row">
 				<div className="col-md-12">
-					<div className="card m-5">
+					<div className="card m-5" style={{ border: "1.5px solid darkgreen" }}>
 						<div className="card-header">
-							<h3>
+							<h3 style={{ color: "darkgreen" }}>
 								<i className="fas fa-leaf"></i>
-								Crop Suggestion
+								<strong>Crop Suggestion</strong>
 							</h3>
 						</div>
 						<div className="card-body">
 							<div className="row">
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											pH
 										</label>
@@ -267,12 +267,13 @@ const SuggestionPage = ({ user }) => {
 											name="ph"
 											value={suggestion.ph}
 											onChange={handleChange}
+											style={{ border: "1.5px solid black" }}
 										/>
 									</div>
 								</div>
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											Temperature
 										</label>
@@ -282,6 +283,7 @@ const SuggestionPage = ({ user }) => {
 											name="temperature"
 											value={suggestion.temperature}
 											onChange={handleChange}
+											style={{ border: "1.5px solid black" }}
 										/>
 									</div>
 								</div>
@@ -289,7 +291,7 @@ const SuggestionPage = ({ user }) => {
 							<div className="row">
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											Humidity
 										</label>
@@ -299,12 +301,13 @@ const SuggestionPage = ({ user }) => {
 											name="humidity"
 											value={suggestion.humidity}
 											onChange={handleChange}
+											style={{ border: "1.5px solid black" }}
 										/>
 									</div>
 								</div>
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											N (Nitrogen)
 										</label>
@@ -314,12 +317,13 @@ const SuggestionPage = ({ user }) => {
 											name="N"
 											value={suggestion.N}
 											onChange={handleChange}
+											style={{ border: "1.5px solid black" }}
 										/>
 									</div>
 								</div>
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											P (Phosphorus)
 										</label>
@@ -329,12 +333,13 @@ const SuggestionPage = ({ user }) => {
 											name="P"
 											value={suggestion.P}
 											onChange={handleChange}
+											style={{ border: "1.5px solid black" }}
 										/>
 									</div>
 								</div>
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											Rainfall
 										</label>
@@ -344,6 +349,7 @@ const SuggestionPage = ({ user }) => {
 											name="rainfall"
 											value={suggestion.rainfall}
 											onChange={handleChange}
+											style={{ border: "1.5px solid black" }}
 										/>
 									</div>
 								</div>
@@ -351,7 +357,7 @@ const SuggestionPage = ({ user }) => {
 							<div className="row">
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											K (Potassium)
 										</label>
@@ -361,6 +367,7 @@ const SuggestionPage = ({ user }) => {
 											name="K"
 											value={suggestion.K}
 											onChange={handleChange}
+											style={{ border: "1.5px solid black" }}
 										/>
 									</div>
 								</div>

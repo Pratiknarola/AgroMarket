@@ -99,8 +99,10 @@ const Auction = () => {
     <Container style={{marginTop: "100px"}}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <Typography variant="h4" style={{ marginTop: "20px" }}>
+          <Typography variant="h4" style={{ marginTop: "20px", color: "darkgreen" }}>
+            <strong>
             Present ongoing auctions
+            </strong>
           </Typography>
           <IconButton
             style={{ float: "right" }}
@@ -121,7 +123,7 @@ const Auction = () => {
           </Collapse>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h4" style={{ marginTop: "20px" }}>
+          <Typography variant="h4" style={{ marginTop: "20px", color: "darkgreen" }}>
             Future upcoming auctions
           </Typography>
           <IconButton
@@ -143,7 +145,7 @@ const Auction = () => {
           </Collapse>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h4" style={{ marginTop: "20px" }}>
+          <Typography variant="h4" style={{ marginTop: "20px", color: "darkgreen" }}>
             Past completed auctions
           </Typography>
           <IconButton
@@ -327,16 +329,16 @@ const Tile = (props) => {
       <CardContent>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={4} lg={3}>
-            <Typography variant="h6">Crop name: {props.auc.crop?.name}</Typography>
+            <Typography variant="h6"> <span style={{color: "darkblue"}}>Crop name: </span> {props.auc.crop?.name}</Typography>
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3}>
-            <Typography variant="h6">Farmer name: {props.auc.owner?.firstname}</Typography>
+            <Typography variant="h6"><span style={{color: "darkblue"}}>Farmer name: </span> {props.auc.owner?.firstname}</Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={4} lg={6}>
-            <Typography variant="h6">Description: {props.auc.description}</Typography>
+            <Typography variant="h6"> <span style={{color: "darkblue"}}> Description: </span> {props.auc.description}</Typography>
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3}>
-            <Typography variant="h6">Start price: {props.auc.startprice}</Typography>
+            <Typography variant="h6"><span style={{color: "darkblue"}}>Start price: </span> {props.auc.startprice}</Typography>
           </Grid>
           <Grid item xs={12} sm={6} md={4} lg={3}>
             {showTimer()}

@@ -191,7 +191,7 @@ class FarmerForm extends Component {
     <MuiThemeProvider>
       <div className="container" style={containerStyle}>
           <br />
-          <h1 style={{ marginTop: 70 }}>Farmer Form</h1>
+          <h1 style={{ marginTop: 70, color: "darkgreen" }}><strong> Farmer Form </strong></h1>
           <br />
           <form onSubmit={this.submit}>
             <div className="form-group p-2 ">
@@ -199,6 +199,7 @@ class FarmerForm extends Component {
               <select
                 className="form-control"
                 onChange={this.handleChange("selectedcrop")}
+                style={{ border: "1.5px solid black" }}
               >
                 <option value="">Select Crop</option>
                 {this.state.cropslist.map((crop) => (
@@ -236,6 +237,7 @@ class FarmerForm extends Component {
                     max="23"
                     placeholder="Hour"
                     onChange={this.handleChange("durationhour")}
+                    style={{ border: "1.5px solid black" }}
                   />
                 </div>
                 <div className="col-md-4">
@@ -246,6 +248,7 @@ class FarmerForm extends Component {
                     min="0"
                     max="59"
                     onChange={this.handleChange("durationminute")}
+                    style={{ border: "1.5px solid black" }}
                   />
                 </div>
                 
@@ -277,6 +280,7 @@ class FarmerForm extends Component {
                 className="form-control"
                 placeholder="Quantity"
                 onChange={this.handleChange("quantity")}
+                style={{ border: "1.5px solid black" }}
               />
             </div>
             <div className="form-group p-2 ">
@@ -286,6 +290,7 @@ class FarmerForm extends Component {
                 className="form-control"
                 placeholder="Description"
                 onChange={this.handleChange("description")}
+                style={{ border: "1.5px solid black" }}
               />
             </div>
             <div className="form-group p-2 ">
@@ -295,6 +300,7 @@ class FarmerForm extends Component {
                 className="form-control"
                 placeholder="Start Price"
                 onChange={this.handleChange("startprice")}
+                style={{ border: "1.5px solid black" }}
               />
             </div>
           {/* end form here */}
@@ -325,4 +331,6 @@ const containerStyle = {
   borderRadius: "5px",
   border: "1px solid lightgray",
   backgroundColor: "white",
+  color: "darkblue",
+  border: "1.5px solid black"
 };
