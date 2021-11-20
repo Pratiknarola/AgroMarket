@@ -243,7 +243,7 @@ const SuggestionPage = ({ user }) => {
 			
 		) : (
 		suggestionResult == "" || suggestionResult == null || suggestionResult == undefined ? 
-		<div className="container m-5" style={{ border: "1.5px solid black", }}>
+		<div className="container" style={{ border: "1.5px solid black", marginTop:"15vh" }}>
 			<div className="row">
 				<div className="col-md-12">
 					<div className="card m-5" style={{ border: "1.5px solid darkgreen" }}>
@@ -413,7 +413,7 @@ const SuggestionPage = ({ user }) => {
 							<div className="row">
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											pH
 										</label>
@@ -422,7 +422,7 @@ const SuggestionPage = ({ user }) => {
 								</div>
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											Temperature
 										</label>
@@ -433,7 +433,7 @@ const SuggestionPage = ({ user }) => {
 							<div className="row">
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											Humidity
 										</label>
@@ -442,7 +442,7 @@ const SuggestionPage = ({ user }) => {
 								</div>
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											N (Nitrogen)
 										</label>
@@ -451,7 +451,7 @@ const SuggestionPage = ({ user }) => {
 								</div>
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											P (Phosphorus)
 										</label>
@@ -460,7 +460,7 @@ const SuggestionPage = ({ user }) => {
 								</div>
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											Rainfall
 										</label>
@@ -471,7 +471,7 @@ const SuggestionPage = ({ user }) => {
 							<div className="row">
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											K (Potassium)
 										</label>
@@ -484,7 +484,7 @@ const SuggestionPage = ({ user }) => {
 							<div className="row">
 								<div className="col-md-6">
 									<div className="form-group p-2">
-										<label>
+										<label style={{color: "darkblue"}}>
 											<i className="fas fa-leaf"></i>
 											Suggested Crop
 										</label>

@@ -124,7 +124,7 @@ const Auction = () => {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h4" style={{ marginTop: "20px", color: "darkgreen" }}>
-            Future upcoming auctions
+          <strong>Future upcoming auctions </strong>
           </Typography>
           <IconButton
             style={{ float: "right" }}
@@ -146,7 +146,7 @@ const Auction = () => {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h4" style={{ marginTop: "20px", color: "darkgreen" }}>
-            Past completed auctions
+            <strong>Past completed auctions </strong>
           </Typography>
           <IconButton
             style={{ float: "right" }}
